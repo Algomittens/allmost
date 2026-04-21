@@ -1,0 +1,17 @@
+# Local-only files — not published to allmost.app
+New Text Document.txt
+extra_icon_files.zip
+
+# SVG sources (live icon is icon-128.png only)
+icon-16.png
+icon-48.png
+icon-16.svg
+icon-32.svg
+icon-master.svg
+
+# Internal design/generator tooling
+icons-and-store-assets.html
+_mockup-sources/
+
+# Chrome Web Store submission assets (uploaded directly to CWS, not served)
+store/
