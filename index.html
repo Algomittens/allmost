@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>aLLMost — Refract your LLM. See what's actually there.</title>
-<meta name="description" content="A Chrome extension that splits ChatGPT, Claude, and Gemini responses into their component signals — confidence, evasion, contradiction, intent." />
+<meta name="description" content="A Chrome extension that splits ChatGPT, Claude, and Gemini responses into their component signals — confidence, evasion, intent, similarity." />
 
 <link rel="icon" type="image/png" href="icon-128.png">
 
@@ -949,56 +949,6 @@
     font-size: 9.5px;
   }
 
-  /* — Contradiction — */
-  .contra {
-    background: rgba(42,18,18,0.6);
-    border: 1px solid rgba(255,107,107,0.3);
-    border-left: 3px solid var(--w-red);
-    border-radius: 8px;
-    padding: 14px 16px;
-  }
-  .contra .head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--w-red);
-    letter-spacing: 0.04em;
-    margin-bottom: 10px;
-  }
-  .contra .pair {
-    display: grid;
-    gap: 8px;
-    font-size: 13px;
-    line-height: 1.5;
-    font-weight: 300;
-  }
-  .contra .pair .quote {
-    color: var(--bone-dim);
-    padding: 6px 10px;
-    border-left: 2px solid var(--ink-edge-2);
-    font-style: italic;
-    font-family: var(--serif);
-    font-size: 13.5px;
-  }
-  .contra .pair .quote .ref {
-    font-family: var(--mono);
-    font-style: normal;
-    font-size: 10px;
-    color: var(--quiet);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 3px;
-  }
-  .contra .jump {
-    margin-top: 10px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--w-red);
-  }
-
   /* ─────────────────────────────────────────────────
      §4 — ALL PLATFORMS GRID
      ─────────────────────────────────────────────── */
@@ -1515,7 +1465,7 @@
       </h1>
 
       <p class="sub">
-        aLLMost overlays a thin lens on <span class="pill">claude.ai</span>, <span class="pill">chatgpt.com</span>, <span class="pill">gemini.google.com</span>, <span class="pill">deepseek.com</span>, <span class="pill">kimi.com</span> and <span class="pill">grok.com</span> — and splits every response into its component signals: confidence, evasion, contradiction, intent. The model still talks. You finally see how.
+        aLLMost overlays a thin lens on <span class="pill">claude.ai</span>, <span class="pill">chatgpt.com</span>, <span class="pill">gemini.google.com</span>, <span class="pill">deepseek.com</span>, <span class="pill">kimi.com</span> and <span class="pill">grok.com</span> — and splits every response into its component signals: confidence, evasion, intent, similarity. The model still talks. You finally see how.
       </p>
 
       <div class="cta-row">
@@ -1615,7 +1565,7 @@
         <span class="label lbl-2">Intent</span>
         <span class="label lbl-3">Similarity</span>
         <span class="label lbl-4">Evasion</span>
-        <span class="label lbl-5">Contradiction</span>
+        <span class="label lbl-5">Quality</span>
       </div>
     </div>
 
@@ -1702,8 +1652,7 @@
         <p>aLLMost watches your input field. Before you commit, it asks two questions: have you asked this before, and is this the right model for the job?</p>
         <ul class="features">
           <li>Déjà Prompt — semantic match against your history <span class="badge">free</span></li>
-          <li>Model Router — best LLM for this intent <span class="badge">free</span></li>
-          <li>Intent classifier — 8 categories, &lt;10ms <span class="badge">free</span></li>
+          <li>Model Router — best LLM for this prompt · 8 intent categories <span class="badge">free</span></li>
         </ul>
       </div>
 
@@ -1713,11 +1662,10 @@
           <span class="when">— after the model speaks</span>
         </div>
         <h3>Post-Receive <em>analysis.</em></h3>
-        <p>Sentence-level confidence coloring, evasion checks, and a contradiction tracker that flags when the model walks back its own claims mid-conversation.</p>
+        <p>Sentence-level confidence coloring plus a per-response evasion score that quantifies how much the model hedged, refused, or overclaimed.</p>
         <ul class="features">
-          <li>Confidence heatmap — 200+ hedging patterns <span class="badge">free</span></li>
-          <li>Evasion detection — LLM-as-judge on alignment <span class="badge pro">pro</span></li>
-          <li>Contradiction tracker — claim-level diffing <span class="badge pro">pro</span></li>
+          <li>Confidence heatmap — 300+ patterns · 4 categories <span class="badge">free</span></li>
+          <li>Evasion detection — per-response % from the classifier <span class="badge pro">pro</span></li>
         </ul>
       </div>
 
@@ -1732,6 +1680,7 @@
           <li>Quality scores per platform <span class="badge pro">pro</span></li>
           <li>Reuse cluster analysis <span class="badge pro">pro</span></li>
           <li>Personalized routing — improves over time <span class="badge pro">pro</span></li>
+          <li>Prompts export — download your history as JSON <span class="badge pro">pro</span></li>
         </ul>
       </div>
 
@@ -1806,25 +1755,6 @@
             <div class="head">⚠ PARTIAL ANSWER · alignment 54 / directness 42</div>
             <div class="body">You asked which framework is best. The response <strong>compared three options without recommending one.</strong></div>
             <div class="miss"><span class="lbl">missing</span>direct recommendation, decision criteria</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contradiction -->
-      <div class="mockup">
-        <div class="mockup-head">
-          <span class="name">Contradiction Tracker</span>
-          <span class="tag">post-receive · red 680nm · pro</span>
-        </div>
-        <p class="mockup-desc">Extracts factual claims per turn, embeds them, and flags it when message #7 contradicts message #3 — quietly, with a jump link.</p>
-        <div class="mockup-frame">
-          <div class="contra">
-            <div class="head">⚡ CONTRADICTS MESSAGE #3</div>
-            <div class="pair">
-              <div class="quote"><span class="ref">earlier</span>"Python is generally faster for this use case."</div>
-              <div class="quote"><span class="ref">just now</span>"JavaScript would be the faster choice here."</div>
-            </div>
-            <div class="jump">↗ Jump to original claim</div>
           </div>
         </div>
       </div>
@@ -1904,14 +1834,14 @@
             <div class="num">02</div>
             <div>
               <h4>IndexedDB stores everything locally.</h4>
-              <p>Your prompt history, embeddings, and analytics live in your browser's local database. Cap is 10,000 prompts. Clear it any time from settings.</p>
+              <p>Your prompt history, embeddings, and analytics live in your browser's local database. Cap is 100 prompts free, 1,000 on Pro. Clear it any time from settings.</p>
             </div>
           </div>
           <div class="pt">
             <div class="num">03</div>
             <div>
-              <h4>Pro evasion checks use your own API key.</h4>
-              <p>The optional evasion detector runs Gemini Flash as a judge — billed to your Google AI key, with a Pro-tier proxy quota as alternative. Either way, no aLLMost server sees your prompt.</p>
+              <h4>Even evasion detection runs locally.</h4>
+              <p>No external API call. Evasion % is derived from the same 300+ hedge/refusal/overclaim patterns that power the free-tier heatmap — classified per sentence, aggregated per response. Nothing about your prompts leaves the browser.</p>
             </div>
           </div>
           <div class="pt">
@@ -1944,13 +1874,14 @@
         <div class="tier-price"><span class="currency">$</span>0</div>
         <div class="tier-tag">No account. No card. Install and go.</div>
         <ul class="feats">
-          <li>Déjà Prompt (capped at 1,000 prompts, FIFO)</li>
+          <li>Déjà Prompt (last 100 prompts, FIFO)</li>
           <li>Model Router across all platforms</li>
-          <li>Intent classification</li>
-          <li>Confidence heatmap</li>
-          <li class="muted">Evasion detection — Pro only</li>
-          <li class="muted">Contradiction tracker — Pro only</li>
-          <li class="muted">Cross-session dashboard — Pro only</li>
+          <li>Confidence heatmap · 300+ patterns · 4 categories</li>
+          <li class="muted">Evasion trend — Pro only</li>
+          <li class="muted">Quality scores per platform — Pro only</li>
+          <li class="muted">Reuse cluster analysis — Pro only</li>
+          <li class="muted">Personalized routing — Pro only</li>
+          <li class="muted">Prompts export — Pro only</li>
         </ul>
         <div class="price-cta">
           <a href="#" class="btn ghost">Add to Chrome</a>
@@ -1962,12 +1893,12 @@
         <div class="tier-price"><span class="currency">$</span>7<span class="per">/ mo</span></div>
         <div class="tier-tag">Everything in Free, plus the deeper lens.</div>
         <ul class="feats">
-          <li>Unlimited Déjà Prompt history</li>
-          <li>Evasion detection (LLM-as-judge)</li>
-          <li>Contradiction tracker across the conversation</li>
-          <li>Cross-session dashboard with platform trends</li>
-          <li>Personalized router — calibrates to your patterns</li>
-          <li>Unlimited saved prompts</li>
+          <li>10× Déjà Prompt history (1,000 prompts)</li>
+          <li>Evasion detection — per-response %</li>
+          <li>Quality scores per platform with trend dashboard</li>
+          <li>Reuse cluster analysis across your history</li>
+          <li>Personalized router — calibrates to your signals</li>
+          <li>Prompts export — JSON download</li>
         </ul>
         <div class="price-cta">
           <a href="#" class="btn spec">Subscribe</a>
@@ -1994,14 +1925,14 @@
       <details class="faq" open>
         <summary>How is this different from a browser extension that just summarizes responses? <span class="toggle">+</span></summary>
         <div class="answer">
-          aLLMost doesn't summarize anything. It surfaces signal that's already in the response — hedging language, evasion patterns, claim contradictions — and routes prompts to the model best suited for the task. The output of the LLM is untouched. We add a layer on top.
+          aLLMost doesn't summarize anything. It surfaces signal that's already in the response — hedging language, evasion patterns, per-sentence confidence — and routes prompts to the model best suited for the task. The output of the LLM is untouched. We add a layer on top.
         </div>
       </details>
 
       <details class="faq">
         <summary>Does aLLMost see my conversations? <span class="toggle">+</span></summary>
         <div class="answer">
-          Only locally, on your machine. The free tier makes zero outbound requests of its own. Pro evasion detection sends one judge prompt per analyzed response to Google's Gemini Flash API — using your own API key, or a Pro-tier proxy quota that aggregates anonymously. We never log prompt contents server-side.
+          Only locally, on your machine. Both the free tier AND Pro features run entirely in-browser — no outbound requests beyond the LLM platform you're already on. Evasion detection, quality scores, clusters, and personalized routing all derive from the same local classifiers. Your prompts never leave the device.
         </div>
       </details>
 
@@ -2069,7 +2000,7 @@
             <span class="a-bracket">a</span><span class="refract-llm">LLM</span><span class="ost">ost</span>
           </span>
         </a>
-        <p class="blurb">A thin lens on every LLM you talk to. Confidence, evasion, contradiction — split into colors you can read at a glance.</p>
+        <p class="blurb">A thin lens on every LLM you talk to. Confidence, evasion, intent — split into colors you can read at a glance.</p>
       </div>
 
       <div class="col">
