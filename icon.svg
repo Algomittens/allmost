@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="spectrum" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B6BFF"/>
+      <stop offset="16%" stop-color="#5C7BFF"/>
+      <stop offset="32%" stop-color="#5CDFFF"/>
+      <stop offset="48%" stop-color="#7FFAB1"/>
+      <stop offset="64%" stop-color="#FFE066"/>
+      <stop offset="76%" stop-color="#FFB347"/>
+      <stop offset="88%" stop-color="#FF8B7A"/>
+      <stop offset="100%" stop-color="#FF6B6B"/>
+    </linearGradient>
+    <linearGradient id="spectrum-inner" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B6BFF"/>
+      <stop offset="16%" stop-color="#5C7BFF"/>
+      <stop offset="32%" stop-color="#5CDFFF"/>
+      <stop offset="48%" stop-color="#7FFAB1"/>
+      <stop offset="64%" stop-color="#FFE066"/>
+      <stop offset="76%" stop-color="#FFB347"/>
+      <stop offset="88%" stop-color="#FF8B7A"/>
+      <stop offset="100%" stop-color="#FF6B6B"/>
+    </linearGradient>
+    <clipPath id="outer-clip">
+      <rect x="0" y="0" width="512" height="512" rx="112" ry="112"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Outer rounded rect background -->
+  <rect x="0" y="0" width="512" height="512" rx="112" ry="112" fill="#0A0816"/>
+  
+  <!-- Spectrum border -->
+  <rect x="12" y="12" width="488" height="488" rx="102" ry="102" 
+        fill="none" stroke="url(#spectrum)" stroke-width="24" 
+        clip-path="url(#outer-clip)"/>
+  
+  <!-- Inner spectrum square -->
+  <rect x="168" y="168" width="176" height="176" rx="38" ry="38" fill="url(#spectrum-inner)"/>
+</svg>

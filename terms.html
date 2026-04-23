@@ -66,15 +66,39 @@
       border-bottom: 1px solid var(--ink-edge);
     }
     .logo {
-      font-size: 18px; font-weight: 700; color: var(--bone);
+      font-size: 18px; font-weight: 500; color: var(--bone);
       display: flex; align-items: center; gap: 10px;
-      text-decoration: none; font-family: var(--serif);
+      text-decoration: none; font-family: var(--sans);
+      letter-spacing: -0.01em;
     }
-    .logo img { width: 28px; height: 28px; border-radius: 6px; }
-    .logo-text {
+    @keyframes logoShimmer {
+      0%   { background-position:   0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    @keyframes borderShimmer {
+      0%   { background-position: 50% 50%,   0% 50%; }
+      100% { background-position: 50% 50%, 200% 50%; }
+    }
+    .prism-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      background-image: url('icon-128.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .logo .refract-llm {
       background: var(--spectrum);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
+      font-weight: 600;
+      padding-right: 0.08em;
+      margin-right: -0.08em;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .prism-mark, .prism-mark::after { animation: none; }
     }
     .nav-links { display: flex; align-items: center; gap: 28px; }
     .nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; }
@@ -148,8 +172,8 @@
 
   <nav>
     <a href="index.html" class="logo">
-      <img src="icon-128.png" alt="aLLMost">
-      <span class="logo-text">aLLMost</span>
+      <span class="prism-mark" aria-hidden="true"></span>
+      <span class="word">a<span class="refract-llm">LLM</span>ost</span>
     </a>
     <div class="nav-links">
       <a href="index.html">Home</a>

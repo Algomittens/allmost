@@ -150,7 +150,6 @@
     background: rgba(10,8,22,0.78);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--ink-edge);
   }
   nav.top .row {
     height: 68px;
@@ -162,13 +161,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    font-family: var(--serif);
+    font-family: var(--sans);
     font-weight: 500;
     font-size: 22px;
     letter-spacing: -0.01em;
-  }
-  .brand .prism-mark {
-    width: 22px; height: 22px;
   }
   .brand .word .a-bracket,
   .brand .word .ost { color: var(--bone); }
@@ -178,6 +174,17 @@
     background-clip: text;
     color: transparent;
     display: inline-block;
+    font-weight: 600;
+  }
+  .llm {
+    background: var(--spectrum);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: 600;
+    padding-right: 0.12em;
+    margin-right: -0.12em;
   }
 
   nav.top ul {
@@ -262,8 +269,8 @@
   .hero-grid {
     position: relative;
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 80px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 64px;
     align-items: center;
   }
   @media (max-width: 980px) {
@@ -305,12 +312,22 @@
     font-weight: 300;
     color: var(--bone);
   }
+  @keyframes rainbowFlow {
+    0%   { background-position:   0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
   .headline .refract {
     background: var(--spectrum);
+    background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     display: inline-block;
+    font-weight: 450;
+    animation: rainbowFlow 4s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .headline .refract { animation: none; }
   }
 
   .sub {
@@ -491,6 +508,13 @@
     font-weight: 300;
     color: var(--bone-dim);
   }
+  .zone-head.tight {
+    max-width: 1000px;
+    margin-bottom: 40px;
+  }
+  .zone-head.tight h2 {
+    font-size: clamp(30px, 3.6vw, 44px);
+  }
   .zone-head .lede {
     font-size: 18px;
     line-height: 1.6;
@@ -623,7 +647,7 @@
 
   .layer {
     background: var(--ink-base);
-    padding: 40px 36px 44px;
+    padding: 28px 26px 32px;
     position: relative;
     transition: background 0.3s ease;
   }
@@ -645,7 +669,7 @@
     font-size: 11px;
     letter-spacing: 0.12em;
     color: var(--accent);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
   }
@@ -655,10 +679,10 @@
   .layer h3 {
     font-family: var(--serif);
     font-weight: 350;
-    font-size: 28px;
+    font-size: 26px;
     line-height: 1.15;
     letter-spacing: -0.015em;
-    margin: 0 0 20px;
+    margin: 0 0 14px;
     color: var(--bone);
     font-variation-settings: "opsz" 60, "SOFT" 30;
   }
@@ -669,22 +693,22 @@
   }
   .layer p {
     font-size: 14.5px;
-    line-height: 1.6;
+    line-height: 1.55;
     color: var(--bone-dim);
     font-weight: 300;
-    margin: 0 0 28px;
+    margin: 0 0 18px;
   }
   .layer .features {
     list-style: none;
     margin: 0; padding: 0;
     border-top: 1px solid var(--ink-edge);
-    padding-top: 20px;
+    padding-top: 14px;
   }
   .layer .features li {
     font-family: var(--mono);
     font-size: 11.5px;
     color: var(--bone-dim);
-    padding: 9px 0;
+    padding: 6px 0;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -708,8 +732,31 @@
     letter-spacing: 0.1em;
   }
   .layer .features li .badge.pro {
-    color: var(--w-amber);
-    border-color: rgba(255,179,71,0.3);
+    position: relative;
+    background: var(--spectrum);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    border-color: transparent;
+    font-weight: 600;
+  }
+  .layer .features li .badge.pro::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 3px;
+    padding: 1px;
+    background: var(--spectrum);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+            mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
   }
 
   /* ─────────────────────────────────────────────────
@@ -718,9 +765,9 @@
   .mockup-stack {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    gap: 20px;
   }
-  @media (max-width: 900px) {
+  @media (max-width: 800px) {
     .mockup-stack { grid-template-columns: 1fr; }
   }
 
@@ -728,7 +775,7 @@
     background: var(--ink-base);
     border: 1px solid var(--ink-edge);
     border-radius: 16px;
-    padding: 32px;
+    padding: 24px;
     position: relative;
     overflow: hidden;
   }
@@ -767,58 +814,78 @@
     font-size: 13px;
   }
 
-  /* — Déjà Prompt card mockup — */
+  /* — Déjà Prompt card mockup (faithful to store screenshot 2) — */
   .deja-card {
-    background: rgba(20,18,42,0.88);
-    border: 1px solid rgba(139,107,255,0.28);
-    border-radius: 10px;
-    padding: 16px 18px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+    background: rgba(20, 18, 42, 0.96);
+    border: 1px solid rgba(139, 107, 255, 0.35);
+    border-radius: 14px;
+    padding: 18px 20px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+    position: relative;
+  }
+  .deja-card::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #8B6BFF, transparent);
+    border-radius: 14px 14px 0 0;
   }
   .deja-card .head {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 12px;
     font-family: var(--mono);
-    font-size: 11px;
-    color: var(--w-violet);
-    letter-spacing: 0.04em;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #A58BFF;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
   .deja-card .head .glyph {
-    width: 14px; height: 14px;
-    border: 1px solid var(--w-violet);
-    border-radius: 3px;
+    width: 22px; height: 22px;
+    border: 1px solid rgba(165, 139, 255, 0.55);
+    background: rgba(139, 107, 255, 0.15);
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 9px;
-    color: var(--w-violet);
+    font-size: 13px;
+    color: #A58BFF;
+  }
+  .deja-card .head .score {
+    margin-left: auto;
+    color: var(--w-green);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    font-weight: 400;
   }
   .deja-card .quote {
     font-family: var(--serif);
     font-style: italic;
     color: var(--bone);
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 15px;
+    line-height: 1.45;
     margin-bottom: 8px;
   }
   .deja-card .meta {
     font-family: var(--mono);
-    font-size: 10.5px;
+    font-size: 10px;
     color: var(--quiet);
     margin-bottom: 12px;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
   }
   .deja-card .snip {
     font-size: 12.5px;
     color: var(--bone-dim);
     line-height: 1.5;
-    padding: 10px 12px;
-    background: rgba(0,0,0,0.25);
+    padding: 10px 13px;
+    background: rgba(0,0,0,0.30);
     border-left: 2px solid var(--w-violet);
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 6px 6px 0;
     margin-bottom: 14px;
     font-weight: 300;
   }
@@ -829,13 +896,13 @@
   .deja-card .mini-btn {
     font-family: var(--mono);
     font-size: 10.5px;
-    padding: 5px 10px;
-    border-radius: 4px;
-    border: 1px solid var(--ink-edge-2);
+    padding: 6px 11px;
+    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.10);
     background: transparent;
     color: var(--bone-dim);
     cursor: pointer;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
   }
   .deja-card .mini-btn.primary {
     background: var(--w-violet);
@@ -844,129 +911,259 @@
     font-weight: 500;
   }
 
-  /* — Router badge mockup — */
+  /* — Router badge (faithful to store screenshot 3) — */
   .router-badge {
-    background: rgba(20,18,42,0.88);
-    border: 1px solid rgba(92,223,255,0.28);
-    border-radius: 10px;
-    padding: 16px 18px;
+    background: rgba(20, 18, 42, 0.96);
+    border: 1px solid rgba(92, 223, 255, 0.35);
+    border-radius: 14px;
+    padding: 18px 20px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+    position: relative;
+  }
+  .router-badge::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #5CDFFF, transparent);
+    border-radius: 14px 14px 0 0;
   }
   .router-badge .head {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--w-cyan);
-    letter-spacing: 0.04em;
+    font-weight: 500;
+    color: #87E6FF;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .router-badge .chip {
+    padding: 4px 9px;
+    border: 1px solid rgba(135, 230, 255, 0.55);
+    background: rgba(92, 223, 255, 0.12);
+    border-radius: 5px;
+    font-size: 10.5px;
+    color: #87E6FF;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .router-badge .body {
-    font-size: 13.5px;
+    font-family: var(--serif);
+    font-size: 14.5px;
     color: var(--bone);
-    line-height: 1.55;
+    line-height: 1.5;
     margin-bottom: 14px;
-    font-weight: 300;
+    font-weight: 400;
   }
-  .router-badge .body strong {
-    font-weight: 500;
-    color: var(--bone);
-  }
+  .router-badge .body strong { font-weight: 500; color: var(--bone); }
   .router-badge .scores {
     display: flex;
-    gap: 20px;
-    margin-bottom: 16px;
-    font-family: var(--mono);
-    font-size: 11px;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 14px;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.28);
+    border-radius: 10px;
   }
-  .router-badge .scores .score-item {
+  .router-badge .scores .item {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
   }
   .router-badge .scores .platform {
-    color: var(--quiet);
+    font-family: var(--mono);
+    color: #8a86a3;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     font-size: 9.5px;
   }
   .router-badge .scores .num {
-    font-size: 22px;
+    font-family: var(--serif);
+    font-size: 28px;
     color: var(--bone);
     font-weight: 500;
+    line-height: 1;
   }
-  .router-badge .scores .num.high { color: var(--w-cyan); }
+  .router-badge .scores .num.high {
+    background: linear-gradient(90deg, #5CDFFF, #7FFAB1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .router-badge .scores .arrow {
-    align-self: center;
+    font-size: 20px;
     color: var(--quiet);
-    font-size: 14px;
   }
-  .router-badge .open-link {
+  .router-badge .scores .reason {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #8a86a3;
+    max-width: 130px;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+  }
+  .router-badge .open-btn {
     font-family: var(--mono);
     font-size: 11px;
     color: var(--w-cyan);
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 1px;
+    letter-spacing: 0.06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: rgba(92, 223, 255, 0.12);
+    border: 1px solid rgba(92, 223, 255, 0.35);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .router-badge .cal-badge {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border: 1px solid rgba(127,250,177,0.45);
+    background: rgba(127,250,177,0.10);
+    border-radius: 5px;
+    color: var(--w-green);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    text-transform: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .router-badge .scores .num.personal {
+    background: linear-gradient(90deg, #4EC97C, #7FFAB1);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
   }
 
-  /* — Evasion badge — */
-  .evasion-badge {
-    background: rgba(42,28,18,0.7);
-    border: 1px solid rgba(255,179,71,0.32);
-    border-left: 3px solid var(--w-amber);
-    border-radius: 8px;
-    padding: 14px 16px;
-  }
-  .evasion-badge .head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--w-amber);
-    letter-spacing: 0.04em;
-    margin-bottom: 8px;
-  }
-  .evasion-badge .body {
-    font-size: 13px;
-    color: var(--bone);
-    line-height: 1.55;
+  /* — Confidence heatmap sample (faithful to content/heatmap/renderer.js) — */
+  .heatmap-sample p {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--bone-dim);
+    margin: 0 0 14px;
     font-weight: 300;
   }
-  .evasion-badge .body strong { color: var(--bone); font-weight: 500; }
-  .evasion-badge .miss {
-    margin-top: 8px;
+  .heatmap-sample .sent {
+    border-radius: 3px;
+    padding: 1px 3px;
+    border-bottom: 1px solid transparent;
+  }
+  .heatmap-sample .sent.s-amber  { background: rgba(255,179,71,0.18);  border-bottom-color: rgba(255,179,71,0.34);  color: var(--bone); }
+  .heatmap-sample .sent.s-red    { background: rgba(255,107,107,0.20); border-bottom-color: rgba(255,107,107,0.36); color: var(--bone); }
+  .heatmap-sample .sent.s-violet { background: rgba(168,85,247,0.18);  border-bottom-color: rgba(168,85,247,0.36);  color: var(--bone); }
+
+  .heatmap-legend,
+  .feedback-pill .pill-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--quiet);
+    letter-spacing: 0.04em;
+  }
+  .sw {
+    display: inline-block;
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: -1px;
+  }
+  .sw-amber  { background: rgba(255,179,71,0.7); }
+  .sw-red    { background: rgba(255,107,107,0.7); }
+  .sw-violet { background: rgba(168,85,247,0.7); }
+
+  /* — "this answer?" feedback pill (faithful to content/heatmap/renderer.js) — */
+  .pill-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(127,250,177,0.06), transparent 55%),
+      radial-gradient(circle at 80% 70%, rgba(255,179,71,0.05), transparent 55%),
+      var(--ink-deep);
+  }
+  .feedback-pill {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #0A0816;
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
     font-family: var(--mono);
     font-size: 11px;
+    font-weight: 500;
     color: var(--bone-dim);
+    max-width: 92%;
   }
-  .evasion-badge .miss .lbl {
-    color: var(--w-amber);
-    margin-right: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 9.5px;
+  .feedback-pill .pill-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #7FFAB1, #FFB347, #FF6B6B);
+    flex-shrink: 0;
   }
+  .feedback-pill .pill-label { opacity: 0.75; }
+  .feedback-pill .thumb {
+    border: 1px solid transparent;
+    background: transparent;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--bone-dim);
+    opacity: 0.35;
+    transition: border-color 120ms ease, color 120ms ease, opacity 120ms ease;
+  }
+  .feedback-pill .thumb.picked { opacity: 1; }
+  .feedback-pill .thumb.up.picked {
+    border-color: rgba(127,250,177,0.5);
+    color: #7FFAB1;
+  }
+  .feedback-pill .thumb.down.picked {
+    border-color: rgba(255,107,107,0.5);
+    color: #FF6B6B;
+  }
+  .feedback-pill .pill-sep { color: var(--quiet); opacity: 0.6; }
+  .feedback-pill .pill-evasion { font-variant-numeric: tabular-nums; }
+  .feedback-pill .sev-green  { color: #7FFAB1; }
+  .feedback-pill .sev-amber  { color: #FFB347; }
+  .feedback-pill .sev-red    { color: #FF6B6B; }
 
   /* ─────────────────────────────────────────────────
      §4 — ALL PLATFORMS GRID
      ─────────────────────────────────────────────── */
   .platforms-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1px;
     background: var(--ink-edge);
     border: 1px solid var(--ink-edge);
     border-radius: 16px;
     overflow: hidden;
   }
-  @media (max-width: 800px) { .platforms-grid { grid-template-columns: repeat(2,1fr); } }
-  @media (max-width: 500px) { .platforms-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .platforms-grid { grid-template-columns: repeat(3,1fr); } }
+  @media (max-width: 500px) { .platforms-grid { grid-template-columns: repeat(2,1fr); } }
 
   .platform-cell {
     background: var(--ink-base);
-    padding: 28px 24px;
+    padding: 14px 16px;
     transition: background 0.2s;
   }
   .platform-cell:hover { background: var(--ink-raised); }
@@ -974,25 +1171,27 @@
     font-family: var(--serif);
     font-style: italic;
     font-weight: 400;
-    font-size: 22px;
+    text-align: center;
+    font-size: 17px;
     color: var(--bone);
-    margin-bottom: 6px;
+    margin-bottom: 2px;
   }
   .platform-cell .domain {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--quiet);
-    margin-bottom: 16px;
+    margin-bottom: 0;
+    text-align: center;
   }
   .platform-cell .status {
     font-family: var(--mono);
-    font-size: 10.5px;
+    font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 10px;
+    gap: 7px;
+    padding: 3px 8px;
     border-radius: 999px;
     border: 1px solid var(--ink-edge-2);
     color: var(--bone-dim);
@@ -1013,7 +1212,7 @@
     background: var(--ink-base);
     border: 1px solid var(--ink-edge);
     border-radius: 22px;
-    padding: 64px 56px;
+    padding: 28px 32px;
     position: relative;
     overflow: hidden;
   }
@@ -1026,59 +1225,54 @@
     pointer-events: none;
   }
   .manifesto-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 80px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
     position: relative;
   }
   @media (max-width: 900px) {
-    .manifesto-grid { grid-template-columns: 1fr; gap: 40px; }
-    .manifesto { padding: 40px 28px; }
+    .manifesto { padding: 26px 22px; }
   }
 
-  .manifesto h3 {
-    font-family: var(--serif);
-    font-weight: 350;
-    font-style: italic;
-    font-size: 36px;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin: 0;
-    color: var(--bone);
-    font-variation-settings: "opsz" 144, "SOFT" 50;
-  }
   .manifesto-points {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 36px;
+  }
+  @media (max-width: 720px) {
+    .manifesto-points { grid-template-columns: 1fr; gap: 22px; }
   }
   .manifesto-points .pt {
-    display: grid;
-    grid-template-columns: 56px 1fr;
-    gap: 20px;
-    padding-bottom: 24px;
-    border-bottom: 1px dashed var(--ink-edge);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  .manifesto-points .pt:last-child { border-bottom: none; padding-bottom: 0; }
-  .manifesto-points .pt .num {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--w-green);
-    letter-spacing: 0.08em;
-    padding-top: 4px;
+  .manifesto-points .pt .pt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
   }
   .manifesto-points .pt h4 {
     font-family: var(--serif);
+    font-style: italic;
     font-weight: 400;
     font-size: 19px;
     color: var(--bone);
-    margin: 0 0 8px;
+    margin: 0;
     letter-spacing: -0.01em;
   }
+  .manifesto-points .pt .num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--quiet);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
   .manifesto-points .pt p {
-    font-size: 14.5px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.55;
     color: var(--bone-dim);
     margin: 0;
     font-weight: 300;
@@ -1107,6 +1301,12 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+  .price:hover {
+    background: var(--ink-raised);
+    border-color: var(--ink-edge-2);
+    transform: translateY(-2px);
   }
   .price.flagship {
     background: var(--ink-base);
@@ -1117,6 +1317,11 @@
     background-origin: border-box;
     background-clip: padding-box, border-box;
     position: relative;
+  }
+  .price.flagship:hover {
+    background-image:
+      linear-gradient(var(--ink-raised), var(--ink-raised)),
+      var(--spectrum);
   }
   .price.flagship::after {
     content: 'Most popular';
@@ -1315,6 +1520,7 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    font-weight: 450;
   }
   .closing .sub {
     margin: 0 auto 40px;
@@ -1382,19 +1588,36 @@
     flex-wrap: wrap;
     gap: 16px;
   }
-  footer .legal .spectrum-mark {
-    width: 80px; height: 4px;
-    background: var(--spectrum);
-    border-radius: 2px;
-    opacity: 0.8;
+  footer .legal .legal-tm {
+    flex: 1;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.4;
+    color: var(--quiet);
+    opacity: 0.7;
+    letter-spacing: 0.02em;
+    padding: 0 18px;
   }
 
-  /* Subtle prism mark animation */
-  @keyframes shimmer {
-    0%, 100% { opacity: 0.85; }
-    50%      { opacity: 1; }
+  /* Rainbow-shimmer icon (border + inner box both use the spectrum gradient) */
+  @keyframes logoShimmer {
+    0%   { background-position:   0% 50%; }
+    100% { background-position: 200% 50%; }
   }
-  .brand .prism-mark { animation: shimmer 4s ease-in-out infinite; }
+  @keyframes borderShimmer {
+    0%   { background-position: 50% 50%,   0% 50%; }
+    100% { background-position: 50% 50%, 200% 50%; }
+  }
+  .brand .prism-mark {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    background-image: url('icon-128.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 
   /* Reveal animation on hero load */
   @keyframes rise {
@@ -1406,12 +1629,843 @@
   .hero .sub,
   .hero .cta-row,
   .hero .cta-meta,
-  .hero .prism-stage { animation: rise 0.9s ease both; }
+  .hero .demo-stage { animation: rise 0.9s ease both; }
   .hero h1.headline { animation-delay: 0.05s; }
   .hero .sub        { animation-delay: 0.15s; }
   .hero .cta-row    { animation-delay: 0.22s; }
   .hero .cta-meta   { animation-delay: 0.28s; }
-  .hero .prism-stage { animation-delay: 0.18s; }
+  .hero .demo-stage { animation-delay: 0.18s; }
+
+  /* ─────────────────────────────────────────────────
+     HERO DEMO — live narrative (11s loop)
+     Watch a response stream in and get decomposed
+     into signals. Pure CSS timeline — no JS, no tabs,
+     no static cards. Different from §02 on purpose.
+     ─────────────────────────────────────────────── */
+  .demo-stage {
+    position: relative;
+    max-width: 640px;
+    margin: 0 -60px 0 auto;
+    transform: translateY(-80px);
+  }
+  @media (max-width: 980px) {
+    .demo-stage { max-width: 520px; margin: 0 auto; transform: none; }
+  }
+  /* Demo frame = light theme (matches the extension's light-mode UI) */
+  .demo-frame {
+    background: #F4F1E8;
+    border: 1px solid rgba(10,8,22,0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1 / 0.92;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.45),
+                inset 0 0 0 1px rgba(255,255,255,0.5);
+
+    /* Light-theme heatmap tokens used inside sentence keyframes */
+    --hm-text-dim:    #4A455F;
+    --hm-text-bold:   #1A1729;
+    --hm-amber-bg:    rgba(255,179,71,0.35);
+    --hm-amber-bd:    rgba(255,179,71,0.6);
+    --hm-red-bg:      rgba(255,107,107,0.3);
+    --hm-red-bd:      rgba(255,107,107,0.58);
+    --hm-violet-bg:   rgba(168,85,247,0.25);
+    --hm-violet-bd:   rgba(168,85,247,0.55);
+  }
+  .demo-chrome {
+    background: #E8E2D0;
+    padding: 0 14px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(10,8,22,0.08);
+    flex-shrink: 0;
+  }
+  .demo-chrome .chrome-dots { display: flex; gap: 6px; }
+  .demo-chrome .chrome-dots span {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: rgba(10,8,22,0.15);
+  }
+  .demo-body {
+    flex: 1;
+    position: relative;
+    padding: 22px 24px;
+    overflow: hidden;
+    font-family: var(--sans);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--hm-text-bold);
+  }
+
+  /* 17s cycle. Scene 1 (Router) and Scene 2 (Déjà) each visible ~2.7s,
+     with a ~1s empty gap between so the viewer can read each card. */
+  .demo-body .step {
+    opacity: 0;
+    animation-duration: 17s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+  }
+
+  /* ═══ Phase A (0–5.5s): typing + Router + Déjà ═══ */
+
+  /* Input bar — stays bottom-pinned during pre-send */
+  .dm-inputbar {
+    position: absolute;
+    left: 18px; right: 18px; bottom: 18px;
+    background: #FFFFFF;
+    border: 1px solid rgba(10,8,22,0.12);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-family: var(--sans);
+    font-size: 14.5px;
+    color: #4A455F;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 1px 2px rgba(10,8,22,0.04);
+  }
+  .dm-inputbar .type {
+    display: inline-block;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    animation: anim-type 12s infinite;
+  }
+  .dm-inputbar .caret {
+    display: inline-block;
+    width: 1px;
+    height: 15px;
+    background: #1A1729;
+    vertical-align: text-bottom;
+    margin-left: 1px;
+    animation: caret 1s steps(2) infinite;
+  }
+  /* Typing: max-width animated in discrete steps so chars appear one by one.
+     Typing runs 0–14% so text is fully in before Scene 1 peaks. */
+  @keyframes anim-type {
+    0%   { max-width: 0;    animation-timing-function: steps(40, end); }
+    14%  { max-width: 100%; animation-timing-function: step-end; }
+    58%  { max-width: 100%; }
+    62%  { max-width: 0; }
+    100% { max-width: 0; }
+  }
+  @keyframes caret {
+    0%, 50%   { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  @keyframes anim-inputbar {
+    0%        { opacity: 0; transform: translateY(6px); }
+    3%, 58%   { opacity: 1; transform: translateY(0); }
+    62%, 100% { opacity: 0; transform: translateY(-4px); }
+  }
+  .dm-inputbar.step { animation-name: anim-inputbar; }
+
+  /* Mini cards — EXTENSION ORIGINAL DARK.
+     Both sit bottom-right above the input — where they actually appear in
+     the real extension. Scene distinction comes from timing (big gap between
+     them) + a scene caption + distinct entry/exit directions. */
+  .dm-mini {
+    position: absolute;
+    right: 16px;
+    bottom: 80px;
+    width: 300px;
+    max-width: calc(100% - 32px);
+    background: rgba(20,18,42,0.96);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 11px 14px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.04);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+  }
+  .dm-mini .mini-head {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .dm-mini-router { border-color: rgba(92,223,255,0.28); }
+  .dm-mini-router .mini-head { color: var(--w-cyan); }
+  .dm-mini-router .mini-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border: 1px solid rgba(135,230,255,0.45);
+    border-radius: 4px;
+    color: var(--w-cyan);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+  .dm-mini-router .mini-body {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--bone);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .dm-mini-router .mini-body strong { font-weight: 500; }
+  .dm-mini-router .mini-cta {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    padding: 4px 10px;
+    border: 1px solid rgba(92,223,255,0.55);
+    border-radius: 4px;
+    color: var(--w-cyan);
+    letter-spacing: 0.04em;
+  }
+
+  .dm-mini-deja { border-color: rgba(139,107,255,0.28); }
+  .dm-mini-deja .mini-head { color: var(--w-violet); display: flex; align-items: center; gap: 6px; }
+  .dm-mini-deja .mini-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 12.5px;
+    color: var(--bone);
+    margin-bottom: 4px;
+    line-height: 1.35;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dm-mini-deja .mini-meta {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--quiet);
+    letter-spacing: 0.04em;
+  }
+
+  /* Scene 1 — ROUTER visible ~1.7s → ~4.4s of cycle (~2.7s on screen) */
+  @keyframes anim-router {
+    0%, 6%    { opacity: 0; transform: translateY(18px); }
+    10%, 26%  { opacity: 1; transform: translateY(0); }
+    30%, 100% { opacity: 0; transform: translateY(18px); }
+  }
+  .dm-mini-router.step { animation-name: anim-router; }
+
+  /* 1-second empty gap: 30%–36% of cycle (5.1s → 6.1s real time).
+     Only the input bar + blinking caret are visible — clear scene break. */
+
+  /* Scene 2 — DÉJÀ visible ~6.1s → ~9.4s of cycle (~2.7s on screen) */
+  @keyframes anim-deja {
+    0%, 33%   { opacity: 0; transform: translateY(18px); }
+    37%, 55%  { opacity: 1; transform: translateY(0); }
+    59%, 100% { opacity: 0; transform: translateY(18px); }
+  }
+  .dm-mini-deja.step { animation-name: anim-deja; }
+
+  /* Scene captions — sit at top-center of the body, one per scene.
+     Makes it obvious which feature is being demonstrated. */
+  .dm-caption {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: #4A455F;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(10,8,22,0.08);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
+    max-width: calc(100% - 32px);
+    z-index: 3;
+  }
+  .dm-caption .cap-num {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 999px;
+    color: #1A1729;
+    background: rgba(10,8,22,0.06);
+  }
+  .dm-caption .cap-name { color: #1A1729; font-weight: 500; }
+  .dm-caption .cap-desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 10px;
+  }
+  .dm-cap-router .cap-num  { background: rgba(92,223,255,0.18);  color: #1F6F91; }
+  .dm-cap-router .cap-name { color: #1F6F91; }
+  .dm-cap-deja   .cap-num  { background: rgba(139,107,255,0.18); color: #5a3fbf; }
+  .dm-cap-deja   .cap-name { color: #5a3fbf; }
+
+  /* Caption timing — each caption visible while its card is on screen. */
+  @keyframes anim-cap-router {
+    0%, 6%    { opacity: 0; transform: translate(-50%, -6px); }
+    10%, 26%  { opacity: 1; transform: translate(-50%, 0); }
+    30%, 100% { opacity: 0; transform: translate(-50%, -6px); }
+  }
+  @keyframes anim-cap-deja {
+    0%, 33%   { opacity: 0; transform: translate(-50%, -6px); }
+    37%, 55%  { opacity: 1; transform: translate(-50%, 0); }
+    59%, 100% { opacity: 0; transform: translate(-50%, -6px); }
+  }
+  .dm-cap-router.step { animation-name: anim-cap-router; }
+  .dm-cap-deja.step   { animation-name: anim-cap-deja; }
+
+  /* ═══ Phase B (5.5s+): send → response streams in ═══ */
+
+  /* User bubble */
+  .dm-user {
+    align-self: flex-end;
+    max-width: 82%;
+    background: #E8E2D0;
+    color: #1A1729;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 400;
+  }
+  @keyframes anim-user {
+    0%, 62%   { opacity: 0; transform: translateY(6px); }
+    66%, 96%  { opacity: 1; transform: translateY(0); }
+    100%      { opacity: 0; }
+  }
+  .dm-user.step { animation-name: anim-user; }
+
+  /* Response sentences */
+  .dm-response {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: #4A455F;
+    font-weight: 400;
+  }
+  .dm-response .sent {
+    border-radius: 3px;
+    padding: 1px 3px;
+    border-bottom: 1px solid transparent;
+  }
+
+  /* Heatmap tints = EXTENSION ORIGINAL alpha values.
+     7 sentences total, only 2 tinted (s3 amber hedge, s6 red speculative).
+     The clean sentences (s1, s2, s4, s5, s7) reassure that the heatmap
+     flags specific patterns — not every line. */
+
+  /* s1 — clean */
+  @keyframes anim-sent1 {
+    0%, 66%   { opacity: 0; }
+    69%, 96%  { opacity: 1; }
+    100%      { opacity: 0; }
+  }
+  .sent.s1.step { animation-name: anim-sent1; }
+
+  /* s2 — clean */
+  @keyframes anim-sent2 {
+    0%, 69%   { opacity: 0; }
+    72%, 96%  { opacity: 1; }
+    100%      { opacity: 0; }
+  }
+  .sent.s2.step { animation-name: anim-sent2; }
+
+  /* s3 — amber hedge */
+  @keyframes anim-sent3 {
+    0%, 72%   { opacity: 0; background: transparent;              border-bottom-color: transparent;             color: #4A455F; }
+    75%       { opacity: 1; background: transparent;              border-bottom-color: transparent;             color: #4A455F; }
+    78%, 96%  { opacity: 1; background: rgba(255,179,71,0.18);    border-bottom-color: rgba(255,179,71,0.42);   color: #1A1729; }
+    100%      { opacity: 0; }
+  }
+  .sent.s3.step { animation-name: anim-sent3; }
+
+  /* s4 — clean */
+  @keyframes anim-sent4 {
+    0%, 76%   { opacity: 0; }
+    79%, 96%  { opacity: 1; }
+    100%      { opacity: 0; }
+  }
+  .sent.s4.step { animation-name: anim-sent4; }
+
+  /* s5 — clean */
+  @keyframes anim-sent5 {
+    0%, 79%   { opacity: 0; }
+    82%, 96%  { opacity: 1; }
+    100%      { opacity: 0; }
+  }
+  .sent.s5.step { animation-name: anim-sent5; }
+
+  /* s6 — red speculative */
+  @keyframes anim-sent6 {
+    0%, 82%   { opacity: 0; background: transparent;              border-bottom-color: transparent;             color: #4A455F; }
+    85%       { opacity: 1; background: transparent;              border-bottom-color: transparent;             color: #4A455F; }
+    88%, 96%  { opacity: 1; background: rgba(255,107,107,0.20);   border-bottom-color: rgba(255,107,107,0.44);  color: #1A1729; }
+    100%      { opacity: 0; }
+  }
+  .sent.s6.step { animation-name: anim-sent6; }
+
+  /* s7 — clean, final */
+  @keyframes anim-sent7 {
+    0%, 86%   { opacity: 0; }
+    89%, 96%  { opacity: 1; }
+    100%      { opacity: 0; }
+  }
+  .sent.s7.step { animation-name: anim-sent7; }
+
+  /* ═══ Phase C (~7.5s+): heatmap pill — EXTENSION ORIGINAL DARK ═══
+     Small, floating bottom-right. Evasion % + legend explaining what each
+     colored tint on the response means. No thumbs (separate feature). */
+  .dm-pill {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 7px 12px;
+    background: #0A0816;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--bone-dim);
+    letter-spacing: 0.02em;
+    max-width: calc(100% - 28px);
+    z-index: 2;
+  }
+  .dm-pill .dm-pill-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #7FFAB1, #FFB347, #FF6B6B);
+    flex-shrink: 0;
+  }
+  .dm-pill .dm-pill-sep { color: var(--quiet); opacity: 0.55; }
+  .dm-pill .dm-pill-evasion {
+    color: #FF6B6B;
+    font-variant-numeric: tabular-nums;
+  }
+  .dm-pill .leg-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--bone-dim);
+  }
+  .dm-pill .leg-sw {
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .dm-pill .leg-amber  { background: rgba(255,179,71,0.7); }
+  .dm-pill .leg-red    { background: rgba(255,107,107,0.7); }
+  .dm-pill .leg-violet { background: rgba(168,85,247,0.7); }
+
+  /* Pill timing — appears after last sentence lands */
+  @keyframes anim-pill {
+    0%, 89%   { opacity: 0; transform: translateY(8px); }
+    92%, 96%  { opacity: 1; transform: translateY(0); }
+    100%      { opacity: 0; }
+  }
+  .dm-pill.step { animation-name: anim-pill; }
+
+  /* ─── Carousel mode ────────────────────────────────────────
+     Autoplay killed; scenes navigated manually via arrows/dots/swipe. */
+  .demo-body .step,
+  .dm-inputbar .type,
+  .dm-inputbar .caret { animation: none; opacity: 1; }
+  .dm-inputbar .type { max-width: none; }
+  .sent.s3 { background: rgba(255,179,71,0.18);  border-bottom: 1px solid rgba(255,179,71,0.42); color: #1A1729; }
+  .sent.s6 { background: rgba(255,107,107,0.20); border-bottom: 1px solid rgba(255,107,107,0.44); color: #1A1729; }
+
+  /* The body becomes a viewport; scenes slide horizontally inside. */
+  .demo-body {
+    padding: 0;
+    display: block;
+    gap: 0;
+  }
+  .demo-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    touch-action: pan-y;
+  }
+  .demo-scene {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+    color: var(--hm-text-bold);
+  }
+
+  /* Controls under the frame */
+  .demo-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 16px;
+  }
+  .demo-arrow {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: transparent;
+    color: var(--bone-dim);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 2px;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .demo-arrow:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.30);
+    color: var(--bone);
+  }
+  .demo-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .demo-dots .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(242,238,227,0.22);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.18s, width 0.18s, border-radius 0.18s;
+  }
+  .demo-dots .dot.active {
+    background: var(--bone);
+    width: 18px;
+    border-radius: 4px;
+  }
+  .demo-dots .dot:hover { background: rgba(242,238,227,0.5); }
+  .demo-caption {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--quiet);
+    margin-top: 8px;
+  }
+  .demo-caption strong { color: var(--bone); font-weight: 500; }
+
+  /* §02 cards used inside carousel scenes — float above the input bar */
+  .demo-scene .scene-card {
+    position: absolute;
+    right: 16px;
+    bottom: 80px;
+    width: calc(100% - 32px);
+    max-width: 380px;
+    z-index: 2;
+  }
+  /* Scaled-down variants — §02 cards are sized for §02's wider frames; here
+     in the small carousel scene they need tighter padding + font. */
+  .demo-scene .deja-card.scene-card,
+  .demo-scene .router-badge.scene-card {
+    padding: 13px 15px;
+    border-radius: 11px;
+  }
+  .demo-scene .deja-card.scene-card .head,
+  .demo-scene .router-badge.scene-card .head {
+    font-size: 10px;
+    margin-bottom: 9px;
+    gap: 7px;
+  }
+  .demo-scene .deja-card.scene-card .head .glyph {
+    width: 18px; height: 18px;
+    font-size: 11px;
+    border-radius: 4px;
+  }
+  .demo-scene .deja-card.scene-card .head .score {
+    font-size: 9.5px;
+  }
+  .demo-scene .deja-card.scene-card .quote {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 5px;
+  }
+  .demo-scene .deja-card.scene-card .meta {
+    font-size: 9px;
+    margin-bottom: 8px;
+  }
+  .demo-scene .deja-card.scene-card .snip {
+    font-size: 11px;
+    padding: 7px 10px;
+    line-height: 1.45;
+    margin-bottom: 9px;
+  }
+  .demo-scene .deja-card.scene-card .mini-btn {
+    font-size: 9.5px;
+    padding: 4px 9px;
+  }
+  .demo-scene .router-badge.scene-card .chip {
+    padding: 3px 7px;
+    font-size: 9.5px;
+  }
+  .demo-scene .router-badge.scene-card .cal-badge {
+    padding: 2px 6px;
+    font-size: 9px;
+  }
+  .demo-scene .router-badge.scene-card .body {
+    font-size: 12.5px;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+  .demo-scene .router-badge.scene-card .scores {
+    padding: 9px 12px;
+    margin-bottom: 10px;
+    gap: 14px;
+    border-radius: 8px;
+  }
+  .demo-scene .router-badge.scene-card .scores .platform {
+    font-size: 8.5px;
+  }
+  .demo-scene .router-badge.scene-card .scores .num {
+    font-size: 22px;
+  }
+  .demo-scene .router-badge.scene-card .scores .arrow {
+    font-size: 16px;
+  }
+  .demo-scene .router-badge.scene-card .scores .reason {
+    font-size: 9px;
+    max-width: 100px;
+    line-height: 1.4;
+  }
+  .demo-scene .router-badge.scene-card .open-btn {
+    font-size: 10px;
+    padding: 6px 11px;
+  }
+  /* Scene 7 body — must fit on one line */
+  .demo-scene.scene-personal .router-badge.scene-card .body {
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+
+  /* Ghost conversation — blurred prior exchange so the chat looks active */
+  .dm-ghosts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    filter: blur(2px);
+    opacity: 0.55;
+    pointer-events: none;
+    /* Fade top edge so it looks like the chat continues off-screen */
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 22%);
+  }
+  .dm-ghosts .ghost {
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 78%;
+  }
+  .dm-ghosts .ghost-user {
+    align-self: flex-end;
+    background: #E8E2D0;
+    color: #1A1729;
+  }
+  .dm-ghosts .ghost-assistant {
+    align-self: flex-start;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(10,8,22,0.06);
+    color: #4A455F;
+  }
+
+  /* ─── Per-scene additions ────────────────────────────────── */
+
+  /* Scene 3 — Personalized Routing: badge + delta line on router card */
+  .dm-mini-router .mini-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .dm-mini-router .mini-cal {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border: 1px solid rgba(127,250,177,0.45);
+    background: rgba(127,250,177,0.10);
+    border-radius: 4px;
+    color: var(--w-green);
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    font-weight: 500;
+  }
+
+  /* Scenes 5-8 — popup-style cards (centered, no input bar) */
+  .scene-popup { justify-content: center; }
+  .dm-popcard {
+    position: relative;
+    z-index: 2;
+    background: rgba(20,18,42,0.96);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: auto;
+    width: 92%;
+    max-width: 360px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+  }
+  /* Ghosts that fill the entire scene background (behind popcards) */
+  .dm-ghosts-bg {
+    position: absolute;
+    inset: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    filter: blur(2.5px);
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+    /* Fade both top and bottom — chat extends off-screen on both ends */
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  }
+  .dm-ghosts-bg .ghost {
+    font-family: var(--sans);
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding: 7px 11px;
+    border-radius: 10px;
+    max-width: 78%;
+  }
+  .dm-ghosts-bg .ghost-user {
+    align-self: flex-end;
+    background: #E8E2D0;
+    color: #1A1729;
+  }
+  .dm-ghosts-bg .ghost-assistant {
+    align-self: flex-start;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(10,8,22,0.06);
+    color: #4A455F;
+  }
+  .dm-popcard .pop-head {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--quiet);
+    margin-bottom: 12px;
+  }
+
+  /* Scene 6 — Quality Scores bar chart */
+  .dm-quality-chart { display: flex; flex-direction: column; gap: 9px; }
+  .dm-quality-row {
+    display: grid;
+    grid-template-columns: 64px 1fr 26px;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--bone-dim);
+  }
+  .dm-quality-row .platform { letter-spacing: 0.08em; }
+  .dm-quality-row .bar {
+    display: block;
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .dm-quality-row .bar .fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #4EC97C, #7FFAB1);
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgba(127,250,177,0.45);
+  }
+  .dm-quality-row .num {
+    text-align: right;
+    color: var(--bone);
+    font-weight: 500;
+  }
+
+  /* Scene 7 — Reuse Clusters list */
+  .dm-clusters { display: flex; flex-direction: column; gap: 7px; }
+  .dm-cluster {
+    padding: 8px 11px;
+    background: rgba(0,0,0,0.28);
+    border-left: 2px solid var(--w-violet);
+    border-radius: 0 5px 5px 0;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--bone-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .dm-cluster .topic { color: var(--bone); }
+  .dm-cluster .count {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--w-cyan);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  /* Scene 8 — Prompts Export: JSON preview + download button */
+  .dm-export-preview {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--quiet);
+    background: rgba(0,0,0,0.4);
+    padding: 10px 12px;
+    border-radius: 6px;
+    line-height: 1.65;
+    margin-bottom: 12px;
+    white-space: pre;
+    overflow: hidden;
+    /* Right-edge fade so long JSON lines look intentionally truncated */
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 82%, transparent 100%);
+            mask-image: linear-gradient(90deg, #000 0%, #000 82%, transparent 100%);
+  }
+  .dm-export-preview .key { color: var(--w-cyan); }
+  .dm-export-preview .str { color: var(--w-green); }
+  .dm-export-preview .num { color: #FFB347; }
+  .dm-export-preview .dim { color: var(--quiet); opacity: 0.65; font-style: italic; }
+  .dm-export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 7px 14px;
+    background: rgba(139,107,255,0.15);
+    border: 1px solid rgba(139,107,255,0.45);
+    border-radius: 6px;
+    color: var(--w-violet);
+    letter-spacing: 0.04em;
+  }
 
 </style>
 </head>
@@ -1423,18 +2477,7 @@
 <nav class="top">
   <div class="container row">
     <a href="#" class="brand" aria-label="aLLMost home">
-      <svg class="prism-mark" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="navPrism" x1="0" y1="0" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#8B6BFF"/>
-            <stop offset="0.4" stop-color="#5CDFFF"/>
-            <stop offset="0.7" stop-color="#FFB347"/>
-            <stop offset="1" stop-color="#FF6B6B"/>
-          </linearGradient>
-        </defs>
-        <path d="M11 1.5 L20.5 19 L1.5 19 Z" stroke="url(#navPrism)" stroke-width="1.4" stroke-linejoin="round"/>
-        <path d="M1.5 12 L11 9.5 L20.5 12" stroke="#F2EEE3" stroke-width="0.6" opacity="0.55"/>
-      </svg>
+      <span class="prism-mark" aria-hidden="true"></span>
       <span class="word">
         <span class="a-bracket">a</span><span class="refract-llm">LLM</span><span class="ost">ost</span>
       </span>
@@ -1444,7 +2487,6 @@
       <li class="hide-sm"><a href="#platforms">Platforms</a></li>
       <li class="hide-sm"><a href="#privacy">Privacy</a></li>
       <li class="hide-sm"><a href="#pricing">Pricing</a></li>
-      <li><a href="#" class="btn">Add to Chrome →</a></li>
     </ul>
   </div>
 </nav>
@@ -1456,16 +2498,14 @@
   <div class="container hero-grid">
 
     <div>
-      <div class="eyebrow">Chrome Extension · v0.1 preview</div>
-
       <h1 class="headline">
         Refract<br>
-        your <span class="refract">LLM.</span><br>
+        your <span class="refract">LLM</span>.<br>
         <em>See what's actually there.</em>
       </h1>
 
       <p class="sub">
-        aLLMost overlays a thin lens on <span class="pill">claude.ai</span>, <span class="pill">chatgpt.com</span>, <span class="pill">gemini.google.com</span>, <span class="pill">deepseek.com</span>, <span class="pill">kimi.com</span> and <span class="pill">grok.com</span> — and splits every response into its component signals: confidence, evasion, intent, similarity. The model still talks. You finally see how.
+        a<span class="llm">LLM</span>ost overlays a thin lens on <span class="pill">claude.ai</span>, <span class="pill">chatgpt.com</span>, <span class="pill">gemini.google.com</span>, <span class="pill">deepseek.com</span>, <span class="pill">kimi.com</span> and <span class="pill">grok.com</span> — and splits every response into its component signals: confidence, evasion, intent, similarity. The model still talks. You finally see how.
       </p>
 
       <div class="cta-row">
@@ -1478,94 +2518,269 @@
       </div>
     </div>
 
-    <!-- ── PRISM DIAGRAM ── -->
-    <div class="prism-stage" aria-hidden="true">
-      <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <!-- The white incoming beam -->
-          <linearGradient id="incoming" x1="0" y1="240" x2="180" y2="240" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#F2EEE3" stop-opacity="0"/>
-            <stop offset="1" stop-color="#F2EEE3" stop-opacity="0.85"/>
-          </linearGradient>
+    <!-- ── HERO DEMO — manual 3-scene carousel ── -->
+    <div class="demo-stage" aria-label="aLLMost — three scene demo">
+      <div class="demo-frame">
+        <div class="demo-chrome">
+          <span class="chrome-dots"><span></span><span></span><span></span></span>
+        </div>
 
-          <!-- Refracted rays -->
-          <linearGradient id="ray1" x1="240" y1="240" x2="480" y2="110" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#8B6BFF" stop-opacity="0.95"/>
-            <stop offset="1" stop-color="#8B6BFF" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="ray2" x1="240" y1="240" x2="480" y2="170" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#5CDFFF" stop-opacity="0.95"/>
-            <stop offset="1" stop-color="#5CDFFF" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="ray3" x1="240" y1="240" x2="490" y2="240" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#7FFAB1" stop-opacity="0.95"/>
-            <stop offset="1" stop-color="#7FFAB1" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="ray4" x1="240" y1="240" x2="480" y2="310" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#FFB347" stop-opacity="0.95"/>
-            <stop offset="1" stop-color="#FFB347" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="ray5" x1="240" y1="240" x2="480" y2="370" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#FF6B6B" stop-opacity="0.95"/>
-            <stop offset="1" stop-color="#FF6B6B" stop-opacity="0"/>
-          </linearGradient>
+        <div class="demo-body">
+          <div class="demo-track">
 
-          <!-- Prism gradient -->
-          <linearGradient id="prismFill" x1="180" y1="120" x2="320" y2="360" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#1A172F"/>
-            <stop offset="1" stop-color="#0A0816"/>
-          </linearGradient>
-          <linearGradient id="prismStroke" x1="160" y1="100" x2="340" y2="380" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#8B6BFF" stop-opacity="0.5"/>
-            <stop offset="0.5" stop-color="#5CDFFF" stop-opacity="0.55"/>
-            <stop offset="1" stop-color="#FFB347" stop-opacity="0.5"/>
-          </linearGradient>
+            <!-- Scene 1 — Déjà Prompt (FREE, pre-send) -->
+            <div class="demo-scene scene-deja">
+              <div class="dm-ghosts">
+                <div class="ghost ghost-user">hey, thinking about rebuilding my personal site</div>
+                <div class="ghost ghost-assistant">Sure — what does the current setup look like? Static, CMS, hand-rolled?</div>
+                <div class="ghost ghost-user">really old jekyll site, haven't touched it in years</div>
+                <div class="ghost ghost-assistant">Makes sense. Mainly chasing a visual refresh, or modernizing the toolchain too?</div>
+              </div>
+              <div class="dm-inputbar">
+                <span class="type">which static site framework should I use</span><span class="caret"></span>
+              </div>
+              <div class="deja-card scene-card">
+                <div class="head">
+                  <span class="glyph">⟲</span>
+                  <span>Similar prompt found</span>
+                  <span class="score">· match 0.91</span>
+                </div>
+                <div class="quote">"which framework for a small static site…"</div>
+                <div class="meta">asked on Claude · 18 days ago</div>
+                <div class="snip">Astro for small sites — zero JS by default, opt-in islands…</div>
+                <div class="actions">
+                  <button class="mini-btn primary">View conversation →</button>
+                  <button class="mini-btn">Dismiss</button>
+                </div>
+              </div>
+            </div>
 
-          <!-- Glow -->
-          <filter id="rayGlow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="3"/>
-          </filter>
-        </defs>
+            <!-- Scene 2 — Confidence Heatmap + Evasion Detection (FREE, post-receive) -->
+            <div class="demo-scene scene-evasion">
+              <div class="dm-ghosts">
+                <div class="ghost ghost-user">really old jekyll site, haven't touched it in years</div>
+                <div class="ghost ghost-assistant">Mainly chasing a visual refresh, or modernizing the toolchain too?</div>
+              </div>
+              <div class="dm-user">which static site framework should I use?</div>
+              <div class="dm-response">
+                <span class="sent s1">Both Astro and Hugo are popular choices for static sites.</span>
+                <span class="sent s2">Hugo is known for incredibly fast build times, while Astro emphasizes partial hydration.</span>
+                <span class="sent s3">Your specific needs might differ, so it really depends on your team's preferences.</span>
+                <span class="sent s4">Astro uses a component-based architecture while Hugo is Go-template-driven.</span>
+                <span class="sent s5">Astro lets you write in React, Vue, or Svelte, whereas Hugo's Go templates have a steeper learning curve.</span>
+                <span class="sent s6">I can't really give a definitive recommendation without more context about your setup.</span>
+                <span class="sent s7">Both have strong community support and solid documentation.</span>
+              </div>
+              <div class="dm-pill">
+                <span class="dm-pill-dot"></span>
+                <span class="dm-pill-evasion">evasion: 58%</span>
+                <span class="dm-pill-sep">·</span>
+                <span class="leg-item"><span class="leg-sw leg-amber"></span>hedged</span>
+                <span class="leg-item"><span class="leg-sw leg-red"></span>speculative</span>
+                <span class="leg-item"><span class="leg-sw leg-violet"></span>overclaim</span>
+              </div>
+            </div>
 
-        <!-- Ambient halo -->
-        <circle cx="240" cy="240" r="180" fill="url(#prismStroke)" opacity="0.06"/>
+            <!-- Scene 4 — Model Router (PRO, pre-send) -->
+            <div class="demo-scene scene-router">
+              <div class="dm-ghosts">
+                <div class="ghost ghost-user">I have a queue worker in node that's choking under load</div>
+                <div class="ghost ghost-assistant">How are you reading from the queue — pull, push, or via a broker?</div>
+                <div class="ghost ghost-user">pulling in batches of 50 every second from sqs</div>
+                <div class="ghost ghost-assistant">Right — and processing each batch synchronously? That'd explain the back-pressure.</div>
+              </div>
+              <div class="dm-inputbar">
+                <span class="type">refactor this async handler with backpressure</span><span class="caret"></span>
+              </div>
+              <div class="router-badge scene-card">
+                <div class="head">
+                  <span class="chip">INTENT: coding</span>
+                  <span>SWE-bench Δ +7</span>
+                </div>
+                <div class="body">Coding task — <strong>Claude</strong> outranks <strong>ChatGPT</strong> here. Open on claude.ai?</div>
+                <div class="scores">
+                  <div class="item">
+                    <span class="platform">Claude</span>
+                    <span class="num high">95</span>
+                  </div>
+                  <div class="arrow">›</div>
+                  <div class="item">
+                    <span class="platform">ChatGPT</span>
+                    <span class="num">88</span>
+                  </div>
+                  <div class="reason">SWE-bench · agentic coding</div>
+                </div>
+                <span class="open-btn">Open in Claude →</span>
+              </div>
+            </div>
 
-        <!-- Incoming white beam -->
-        <line x1="20" y1="240" x2="190" y2="240" stroke="url(#incoming)" stroke-width="2.5" filter="url(#rayGlow)"/>
-        <line x1="20" y1="240" x2="190" y2="240" stroke="#F2EEE3" stroke-width="0.8" opacity="0.85"/>
+            <!-- Scene 5 — Quality Scores (PRO, popup card) -->
+            <div class="demo-scene scene-popup">
+              <div class="dm-ghosts dm-ghosts-bg">
+                <div class="ghost ghost-user">I keep getting different answers from each model for the same question</div>
+                <div class="ghost ghost-assistant">That's expected — different training data, different reasoning styles. Are you tracking which one you trust more per task?</div>
+                <div class="ghost ghost-user">kind of — claude for code, chatgpt for writing</div>
+                <div class="ghost ghost-assistant">Reasonable split. Are you measuring it, or going by gut feel?</div>
+                <div class="ghost ghost-user">mostly gut feel honestly</div>
+                <div class="ghost ghost-assistant">Worth quantifying. Score outputs by accuracy and hedging level — you'd see the pattern within a month.</div>
+                <div class="ghost ghost-user">how would I even start tracking that without it becoming a chore</div>
+                <div class="ghost ghost-assistant">Tag each conversation by task type, then a 1–5 score on the response. Patterns surface fast.</div>
+                <div class="ghost ghost-user">does anyone publish leaderboards for this kind of thing?</div>
+                <div class="ghost ghost-assistant">Public ones exist — LMSYS, MT-Bench, SWE-bench. But they don't capture YOUR task mix or YOUR taste in answers.</div>
+                <div class="ghost ghost-user">right, that's the problem. my workflow is weird</div>
+                <div class="ghost ghost-assistant">Exactly. A personal scoreboard built from your own captures is the only one that actually predicts your satisfaction.</div>
+                <div class="ghost ghost-user">also the rankings shift constantly with new models</div>
+                <div class="ghost ghost-assistant">Yeah — last month's winner is this month's mid-tier. Rolling 30-day windows beat all-time rankings.</div>
+                <div class="ghost ghost-user">would the scoring need to be manual or could it be automated</div>
+                <div class="ghost ghost-assistant">Mix of both. Hedge density and refusal patterns can be auto-detected; perceived helpfulness still needs your thumb.</div>
+                <div class="ghost ghost-user">interesting. and per-platform breakdowns?</div>
+                <div class="ghost ghost-assistant">That's the most useful view — Claude's coding score vs ChatGPT's coding score, side by side, over time.</div>
+              </div>
+              <div class="dm-popcard">
+                <div class="pop-head">QUALITY · LAST 30 DAYS</div>
+                <div class="dm-quality-chart">
+                  <div class="dm-quality-row">
+                    <span class="platform">CLAUDE</span>
+                    <span class="bar"><span class="fill" style="width:84%"></span></span>
+                    <span class="num">84</span>
+                  </div>
+                  <div class="dm-quality-row">
+                    <span class="platform">DEEPSEEK</span>
+                    <span class="bar"><span class="fill" style="width:78%"></span></span>
+                    <span class="num">78</span>
+                  </div>
+                  <div class="dm-quality-row">
+                    <span class="platform">CHATGPT</span>
+                    <span class="bar"><span class="fill" style="width:71%"></span></span>
+                    <span class="num">71</span>
+                  </div>
+                  <div class="dm-quality-row">
+                    <span class="platform">GEMINI</span>
+                    <span class="bar"><span class="fill" style="width:65%"></span></span>
+                    <span class="num">65</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <!-- The prism itself: equilateral triangle, point right (light enters left face, exits right face) -->
-        <path d="M 180 120 L 320 240 L 180 360 Z" fill="url(#prismFill)" stroke="url(#prismStroke)" stroke-width="1.2"/>
-        <!-- Inner edge highlight -->
-        <path d="M 180 120 L 320 240 L 180 360 Z" fill="none" stroke="#F2EEE3" stroke-width="0.5" opacity="0.3"/>
+            <!-- Scene 6 — Reuse Clusters (PRO, popup card) -->
+            <div class="demo-scene scene-popup">
+              <div class="dm-ghosts dm-ghosts-bg">
+                <div class="ghost ghost-user">I feel like I keep asking the same questions over and over</div>
+                <div class="ghost ghost-assistant">That's super common. Do you remember roughly how many distinct topics you cycle through?</div>
+                <div class="ghost ghost-user">not really. I just open a new chat each time</div>
+                <div class="ghost ghost-assistant">Right — and the prior context disappears. Worth keeping a personal index of recurring themes.</div>
+                <div class="ghost ghost-user">tried notion. it just becomes another graveyard</div>
+                <div class="ghost ghost-assistant">True. The trick is making it surface itself when you're about to ask — not when you go looking later.</div>
+                <div class="ghost ghost-user">that would actually be useful</div>
+                <div class="ghost ghost-assistant">Agreed. Surfacing past prompts contextually beats retrospective search every time.</div>
+                <div class="ghost ghost-user">how would the matching work though — exact strings?</div>
+                <div class="ghost ghost-assistant">Semantic, not literal. Embedding similarity catches "react state in nested trees" as the same topic as "deep component hierarchy state".</div>
+                <div class="ghost ghost-user">and if I rephrase it differently each time?</div>
+                <div class="ghost ghost-assistant">That's exactly when this matters most — you don't realize you've solved the same problem three weeks ago.</div>
+                <div class="ghost ghost-user">does it work across different LLMs too or just one?</div>
+                <div class="ghost ghost-assistant">Across all of them. Your prompts on Claude, ChatGPT, Gemini all live in the same local index.</div>
+                <div class="ghost ghost-user">that solves a real pain. context-switching costs me hours weekly</div>
+                <div class="ghost ghost-assistant">It compounds — every time you re-derive a result you already had, you also re-derive your own confusion getting there.</div>
+                <div class="ghost ghost-user">would clusters auto-update as I add more prompts?</div>
+                <div class="ghost ghost-assistant">Yes — agglomerative clustering on top of TF vectors, recomputed when the corpus shifts. New prompts merge into existing clusters or seed new ones.</div>
+              </div>
+              <div class="dm-popcard">
+                <div class="pop-head">REUSE CLUSTERS · TOP 4</div>
+                <div class="dm-clusters">
+                  <div class="dm-cluster">
+                    <span class="topic">React state in nested trees</span>
+                    <span class="count">14 · 3 platforms</span>
+                  </div>
+                  <div class="dm-cluster">
+                    <span class="topic">Async streaming + backpressure</span>
+                    <span class="count">9 · 2 platforms</span>
+                  </div>
+                  <div class="dm-cluster">
+                    <span class="topic">Static site generators</span>
+                    <span class="count">7 · 4 platforms</span>
+                  </div>
+                  <div class="dm-cluster">
+                    <span class="topic">SQL window functions</span>
+                    <span class="count">5 · 2 platforms</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <!-- Refracted rays out of the right face -->
-        <line x1="320" y1="240" x2="478" y2="105" stroke="url(#ray1)" stroke-width="1.6" filter="url(#rayGlow)"/>
-        <line x1="320" y1="240" x2="478" y2="168" stroke="url(#ray2)" stroke-width="1.6" filter="url(#rayGlow)"/>
-        <line x1="320" y1="240" x2="478" y2="240" stroke="url(#ray3)" stroke-width="1.6" filter="url(#rayGlow)"/>
-        <line x1="320" y1="240" x2="478" y2="312" stroke="url(#ray4)" stroke-width="1.6" filter="url(#rayGlow)"/>
-        <line x1="320" y1="240" x2="478" y2="375" stroke="url(#ray5)" stroke-width="1.6" filter="url(#rayGlow)"/>
+            <!-- Scene 7 — Personalized Routing (PRO, pre-send w/ calibration) -->
+            <div class="demo-scene scene-personal">
+              <div class="dm-ghosts">
+                <div class="ghost ghost-user">can you help me digest a long earnings call transcript?</div>
+                <div class="ghost ghost-assistant">Of course — paste it or upload the PDF and tell me what to extract.</div>
+                <div class="ghost ghost-user">find every mention of margin guidance and the questions analysts asked</div>
+                <div class="ghost ghost-assistant">Got it. I'll pull the relevant Q&A pairs and group them by analyst.</div>
+                <div class="ghost ghost-user">also flag any spots where the CFO sidestepped a direct question</div>
+                <div class="ghost ghost-assistant">Will do — I'll mark hedges, deflections, and forward-looking caveats separately.</div>
+                <div class="ghost ghost-user">perfect. one more thing — keep it under a single page</div>
+              </div>
+              <div class="dm-inputbar">
+                <span class="type">summarize this PDF transcript into a brief</span><span class="caret"></span>
+              </div>
+              <div class="router-badge scene-card">
+                <div class="head">
+                  <span class="chip">INTENT: summarization</span>
+                  <span class="cal-badge">CALIBRATED · 47</span>
+                </div>
+                <div class="body">Your accepts favor <strong>Claude</strong> — beats benchmark by <strong>14</strong>.</div>
+                <div class="scores">
+                  <div class="item">
+                    <span class="platform">Benchmark</span>
+                    <span class="num">78</span>
+                  </div>
+                  <div class="arrow">›</div>
+                  <div class="item">
+                    <span class="platform">Personal</span>
+                    <span class="num personal">92</span>
+                  </div>
+                  <div class="reason">70/30 blend</div>
+                </div>
+                <span class="open-btn">Open in Claude →</span>
+              </div>
+            </div>
 
-        <!-- Crisp inner ray lines -->
-        <line x1="320" y1="240" x2="478" y2="105" stroke="#8B6BFF" stroke-width="0.5" opacity="0.9"/>
-        <line x1="320" y1="240" x2="478" y2="168" stroke="#5CDFFF" stroke-width="0.5" opacity="0.9"/>
-        <line x1="320" y1="240" x2="478" y2="240" stroke="#7FFAB1" stroke-width="0.5" opacity="0.9"/>
-        <line x1="320" y1="240" x2="478" y2="312" stroke="#FFB347" stroke-width="0.5" opacity="0.9"/>
-        <line x1="320" y1="240" x2="478" y2="375" stroke="#FF6B6B" stroke-width="0.5" opacity="0.9"/>
+            <!-- Scene 8 — Prompts Export (PRO, popup card) -->
+            <div class="demo-scene scene-popup">
+              <div class="dm-popcard">
+                <div class="pop-head">EXPORT · 1,247 PROMPTS</div>
+                <div class="dm-export-preview">[
+  { <span class="key">"platform"</span>: <span class="str">"claude"</span>,   <span class="key">"prompt"</span>: <span class="str">"refactor async handler with backpressure…"</span>, <span class="key">"evasion"</span>: <span class="num">0.18</span> },
+  { <span class="key">"platform"</span>: <span class="str">"chatgpt"</span>,  <span class="key">"prompt"</span>: <span class="str">"summarize this PDF transcript into a brief…"</span>,  <span class="key">"evasion"</span>: <span class="num">0.42</span> },
+  { <span class="key">"platform"</span>: <span class="str">"gemini"</span>,   <span class="key">"prompt"</span>: <span class="str">"explain React Context API re-render behavior…"</span>,    <span class="key">"evasion"</span>: <span class="num">0.31</span> },
+  { <span class="key">"platform"</span>: <span class="str">"claude"</span>,   <span class="key">"prompt"</span>: <span class="str">"which static site framework should I use…"</span>,         <span class="key">"evasion"</span>: <span class="num">0.58</span> },
+  { <span class="key">"platform"</span>: <span class="str">"deepseek"</span>, <span class="key">"prompt"</span>: <span class="str">"SQL window function for cumulative sum…"</span>,            <span class="key">"evasion"</span>: <span class="num">0.12</span> },
+  { <span class="key">"platform"</span>: <span class="str">"kimi"</span>,     <span class="key">"prompt"</span>: <span class="str">"design a Postgres schema for multi-tenant…"</span>,          <span class="key">"evasion"</span>: <span class="num">0.24</span> },
+  { <span class="key">"platform"</span>: <span class="str">"grok"</span>,     <span class="key">"prompt"</span>: <span class="str">"trade-offs of agglomerative vs MinHash clustering…"</span>,  <span class="key">"evasion"</span>: <span class="num">0.39</span> },
+  <span class="dim">… 1,240 more</span>
+]</div>
+                <div class="dm-export-btn">⬇ Download JSON</div>
+              </div>
+            </div>
 
-        <!-- Tiny orientation marks at the prism vertices -->
-        <circle cx="180" cy="120" r="2" fill="#F2EEE3" opacity="0.6"/>
-        <circle cx="320" cy="240" r="2" fill="#F2EEE3" opacity="0.6"/>
-        <circle cx="180" cy="360" r="2" fill="#F2EEE3" opacity="0.6"/>
-      </svg>
+          </div>
+        </div>
+      </div>
 
-      <div class="prism-labels">
-        <span class="label lbl-input">LLM&nbsp;response</span>
-        <span class="label lbl-1">Confidence</span>
-        <span class="label lbl-2">Intent</span>
-        <span class="label lbl-3">Similarity</span>
-        <span class="label lbl-4">Evasion</span>
-        <span class="label lbl-5">Quality</span>
+      <div class="demo-controls">
+        <button class="demo-arrow demo-prev" type="button" aria-label="Previous scene">‹</button>
+        <div class="demo-dots" role="tablist">
+          <button class="dot active" type="button" aria-label="Scene 1 — Déjà Prompt"></button>
+          <button class="dot" type="button" aria-label="Scene 2 — Confidence + Evasion"></button>
+          <button class="dot" type="button" aria-label="Scene 3 — Model Router"></button>
+          <button class="dot" type="button" aria-label="Scene 4 — Quality Scores"></button>
+          <button class="dot" type="button" aria-label="Scene 5 — Reuse Clusters"></button>
+          <button class="dot" type="button" aria-label="Scene 6 — Personalized Routing"></button>
+          <button class="dot" type="button" aria-label="Scene 7 — Prompts Export"></button>
+        </div>
+        <button class="demo-arrow demo-next" type="button" aria-label="Next scene">›</button>
+      </div>
+      <div class="demo-caption">
+        <span class="demo-caption-num">Scene 1 / 7</span> — <strong class="demo-caption-name">Déjà Prompt</strong>
       </div>
     </div>
 
@@ -1575,105 +2790,38 @@
 <!-- ════════════════════════════════════════════════
      SUPPORTED PLATFORMS STRIP
      ══════════════════════════════════════════════ -->
-<div class="platforms-strip">
-  <div class="container row">
-    <div class="label">Now overlays on</div>
-    <div class="list">
-      <span class="item"><span class="dot"></span>Claude</span>
-      <span class="item"><span class="dot"></span>ChatGPT</span>
-      <span class="item"><span class="dot"></span>Gemini</span>
-      <span class="item"><span class="dot"></span>DeepSeek</span>
-      <span class="item"><span class="dot"></span>Kimi</span>
-      <span class="item"><span class="dot"></span>Grok</span>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════
-     §1 — THE DEMONSTRATION
-     ══════════════════════════════════════════════ -->
-<section class="zone" id="demo">
-  <div class="container">
-    <div class="zone-head">
-      <div class="section-marker">§ 01 · Demonstration <span class="wavelength">— 530 nm</span></div>
-      <h2>You've read this answer before. <em>You just couldn't see it hedge.</em></h2>
-      <p class="lede">Below is a real assistant response, untouched. aLLMost runs sentence segmentation, scores each sentence against a dictionary of 200+ hedging patterns, and tints what's confident, what's qualified, and what's pure weasel.</p>
-    </div>
-
-    <div class="demo-block">
-      <div class="demo-paragraph">
-        <div class="response-meta">
-          <span class="model">claude-opus-4-7 · 2026-04-19</span>
-          <span>Heatmap on · Alt+H to toggle</span>
-        </div>
-        <p>
-          <span class="sent s-green">React's useState hook returns a stateful value and a function to update it.</span>
-          <span class="sent s-green">Calling the setter triggers a re-render of the component.</span>
-          <span class="sent s-amber">Generally speaking, you'll want to lift state up to the closest common ancestor when multiple components need access to the same data.</span>
-          <span class="sent s-red">It depends on your specific use case, but some developers might argue that useReducer is preferable for complex state logic.</span>
-          <span class="sent s-amber">In many cases, third-party libraries like Zustand or Jotai can simplify the pattern.</span>
-          <span class="sent s-red">It's worth noting that there's no one-size-fits-all answer here — the right choice depends on team preferences and project scale.</span>
-          <span class="sent s-green">For most applications under ~10 components, plain useState is sufficient.</span>
-        </p>
-      </div>
-
-      <aside class="demo-legend">
-        <div class="lhead">Legend</div>
-        <div class="row"><div class="swatch green"></div>Definitive <span class="score">0.0–0.29</span></div>
-        <div class="row"><div class="swatch amber"></div>Hedged <span class="score">0.30–0.59</span></div>
-        <div class="row"><div class="swatch red"></div>Speculative <span class="score">0.60–1.00</span></div>
-
-        <div class="annot">
-          The two red sentences match four hedging patterns each: <em>"it depends," "some might argue," "no one-size-fits-all," "it's worth noting."</em> The model didn't recommend a thing.
-        </div>
-      </aside>
-    </div>
-  </div>
-</section>
 
 <!-- ════════════════════════════════════════════════
      §2 — THREE LAYERS
      ══════════════════════════════════════════════ -->
 <section class="zone" id="layers">
   <div class="container">
-    <div class="zone-head">
-      <div class="section-marker">§ 02 · Architecture <span class="wavelength">— three layers</span></div>
-      <h2>Three layers, one lens. <em>Before the prompt. After the response. Across every conversation.</em></h2>
+    <div class="zone-head tight">
+      <div class="section-marker">§ 01 · Architecture <span class="wavelength">— three layers</span></div>
+      <h2>Three layers, one lens. <em>Before the prompt. After the response. Across every&nbsp;conversation.</em></h2>
     </div>
 
     <div class="layers-grid">
 
       <div class="layer l-pre">
-        <div class="ix">
-          <span>I.</span>
-          <span class="when">— before Enter</span>
-        </div>
         <h3>Pre-Send <em>intelligence.</em></h3>
-        <p>aLLMost watches your input field. Before you commit, it asks two questions: have you asked this before, and is this the right model for the job?</p>
+        <p>a<span class="llm">LLM</span>ost watches your input field. Before you commit, it asks two questions: have you asked this before, and is this the right model for the job?</p>
         <ul class="features">
           <li>Déjà Prompt — semantic match against your history <span class="badge">free</span></li>
-          <li>Model Router — best LLM for this prompt · 8 intent categories <span class="badge">free</span></li>
+          <li><span>Model Router — best <span class="llm">LLM</span> for this prompt · 8 intent categories</span><span class="badge pro">pro</span></li>
         </ul>
       </div>
 
       <div class="layer l-post">
-        <div class="ix">
-          <span>II.</span>
-          <span class="when">— after the model speaks</span>
-        </div>
         <h3>Post-Receive <em>analysis.</em></h3>
         <p>Sentence-level confidence coloring plus a per-response evasion score that quantifies how much the model hedged, refused, or overclaimed.</p>
         <ul class="features">
           <li>Confidence heatmap — 300+ patterns · 4 categories <span class="badge">free</span></li>
-          <li>Evasion detection — per-response % from the classifier <span class="badge pro">pro</span></li>
+          <li>Evasion detection — per-response % from the classifier <span class="badge">free</span></li>
         </ul>
       </div>
 
       <div class="layer l-cross">
-        <div class="ix">
-          <span>III.</span>
-          <span class="when">— across every chat</span>
-        </div>
         <h3>Cross-Session <em>dashboard.</em></h3>
         <p>Per-platform quality trends, prompt reuse patterns, router accuracy feedback. The longer you use it, the more the lens calibrates to you.</p>
         <ul class="features">
@@ -1694,14 +2842,14 @@
 <section class="zone" id="mockups" style="padding-top: 0;">
   <div class="container">
     <div class="zone-head">
-      <div class="section-marker">§ 03 · Surfaces <span class="wavelength">— what you'll actually see</span></div>
+      <div class="section-marker">§ 02 · Surfaces <span class="wavelength">— what you'll actually see</span></div>
       <h2>Quiet overlays. <em>Never in the way.</em></h2>
-      <p class="lede">aLLMost doesn't replace claude.ai or chatgpt.com — it adds a thin, dismissible layer. Glassy cards anchored to the input. Inline annotations on responses. Nothing more than is earned.</p>
+      <p class="lede">a<span class="llm">LLM</span>ost doesn't replace claude.ai or chatgpt.com — it adds a thin, dismissible layer. Glassy cards anchored to the input. Inline annotations on responses. Nothing more than is earned.</p>
     </div>
 
     <div class="mockup-stack">
 
-      <!-- Déjà Prompt -->
+      <!-- 1. Déjà Prompt (pre-send) — faithful to content/presend/ui.js -->
       <div class="mockup">
         <div class="mockup-head">
           <span class="name">Déjà Prompt</span>
@@ -1710,10 +2858,14 @@
         <p class="mockup-desc">Floats above the input when something semantically similar already lives in your history — on any platform.</p>
         <div class="mockup-frame">
           <div class="deja-card">
-            <div class="head"><span class="glyph">⟲</span> SIMILAR PROMPT FOUND · 0.91</div>
-            <div class="quote">"How do I manage React state in a deeply nested component tree…"</div>
-            <div class="meta">asked on Claude · March 12, 2026</div>
-            <div class="snip">For deep trees, lift state to the closest common ancestor or reach for useReducer. Context API works but causes re-renders…</div>
+            <div class="head">
+              <span class="glyph">⟲</span>
+              <span>Similar prompt found</span>
+              <span class="score">· match 0.91</span>
+            </div>
+            <div class="quote">"How do I handle React state in deeply nested component trees…"</div>
+            <div class="meta">asked on Claude · 38 days ago</div>
+            <div class="snip">For deep trees, lift state to the closest common ancestor, or reach for useReducer. Context API works but causes re-renders across all consumers…</div>
             <div class="actions">
               <button class="mini-btn primary">View conversation →</button>
               <button class="mini-btn">Dismiss</button>
@@ -1722,7 +2874,7 @@
         </div>
       </div>
 
-      <!-- Router -->
+      <!-- 2. Model Router (pre-send) — faithful chip + score-list + cyan CTA -->
       <div class="mockup">
         <div class="mockup-head">
           <span class="name">Model Router</span>
@@ -1731,30 +2883,189 @@
         <p class="mockup-desc">Classifies intent and recommends a different platform only when the gap is meaningful — never naggy.</p>
         <div class="mockup-frame">
           <div class="router-badge">
-            <div class="head">◇ INTENT: coding · suggesting platform</div>
-            <div class="body">This looks like a coding task. <strong>Claude</strong> outranks <strong>ChatGPT</strong> on SWE-bench by a meaningful margin.</div>
-            <div class="scores">
-              <div class="score-item"><span class="platform">Claude</span><span class="num high">95</span></div>
-              <div class="arrow">›</div>
-              <div class="score-item"><span class="platform">ChatGPT</span><span class="num">88</span></div>
+            <div class="head">
+              <span class="chip">INTENT: coding</span>
+              <span>SWE-bench Δ +7</span>
             </div>
-            <span class="open-link">Open in Claude →</span>
+            <div class="body">This looks like a coding task. Your signals show that <strong>Claude</strong> meaningfully outranks <strong>ChatGPT</strong> here — open the same prompt on claude.ai?</div>
+            <div class="scores">
+              <div class="item">
+                <span class="platform">Claude</span>
+                <span class="num high">95</span>
+              </div>
+              <div class="arrow">›</div>
+              <div class="item">
+                <span class="platform">ChatGPT</span>
+                <span class="num">88</span>
+              </div>
+              <div class="reason">SWE-bench score, agentic coding, tool-use benchmarks</div>
+            </div>
+            <span class="open-btn">Open in Claude →</span>
           </div>
         </div>
       </div>
 
-      <!-- Evasion -->
+      <!-- 3. Confidence heatmap (post-receive) — real inline tints from content/heatmap/renderer.js -->
       <div class="mockup">
         <div class="mockup-head">
-          <span class="name">Evasion Detector</span>
-          <span class="tag">post-receive · amber 610nm · pro</span>
+          <span class="name">Confidence heatmap</span>
+          <span class="tag">post-receive · inline tints</span>
         </div>
-        <p class="mockup-desc">A single judge call per response checks whether the answer addressed your actual question — or politely sidestepped it.</p>
+        <p class="mockup-desc">Every sentence is scored against 300+ hedging, speculation, and overclaim patterns — and tinted in place, without touching the rest of the page.</p>
         <div class="mockup-frame">
-          <div class="evasion-badge">
-            <div class="head">⚠ PARTIAL ANSWER · alignment 54 / directness 42</div>
-            <div class="body">You asked which framework is best. The response <strong>compared three options without recommending one.</strong></div>
-            <div class="miss"><span class="lbl">missing</span>direct recommendation, decision criteria</div>
+          <div class="heatmap-sample">
+            <p>React's <code>useState</code> hook is the simplest way to manage local component state. <span class="sent s-amber">For deeply nested trees, you might want to consider useReducer instead.</span> <span class="sent s-red">I'm not entirely sure which approach will perform best in your specific case.</span> <span class="sent s-violet">This pattern will always scale to any application size.</span> Context API works but it's worth knowing it triggers re-renders in every subscribed component.</p>
+            <div class="heatmap-legend">
+              <span><span class="sw sw-amber"></span>hedged</span>
+              <span><span class="sw sw-red"></span>speculative</span>
+              <span><span class="sw sw-violet"></span>overclaim</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Evasion detection — faithful to heatmap renderer's pill -->
+      <div class="mockup">
+        <div class="mockup-head">
+          <span class="name">Evasion detection</span>
+          <span class="tag">post-receive · feedback + evasion %</span>
+        </div>
+        <p class="mockup-desc">One unobtrusive pill anchored bottom-right of every response. Thumbs up/down, one-glance evasion %, and the heatmap legend.</p>
+        <div class="mockup-frame pill-stage">
+          <div class="feedback-pill">
+            <span class="pill-dot"></span>
+            <span class="pill-label">this answer?</span>
+            <button class="thumb up picked">👍</button>
+            <button class="thumb down">👎</button>
+            <span class="pill-sep">·</span>
+            <span class="pill-evasion sev-green">evasion: 18%</span>
+            <span class="pill-sep">·</span>
+            <span class="pill-legend">
+              <span><span class="sw sw-amber"></span>hedged</span>
+              <span><span class="sw sw-red"></span>speculative</span>
+              <span><span class="sw sw-violet"></span>overclaim</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Model Router — Personalized variant (Pro) -->
+      <div class="mockup">
+        <div class="mockup-head">
+          <span class="name">Personalized routing</span>
+          <span class="tag">pre-send · calibrates to you</span>
+        </div>
+        <p class="mockup-desc">The router starts from public benchmarks. Every accept, dismiss, and thumbs-up/down nudges your personal score per (intent, platform). Over time it diverges from the crowd toward what works for you.</p>
+        <div class="mockup-frame">
+          <div class="router-badge">
+            <div class="head">
+              <span class="chip">INTENT: summarization</span>
+              <span class="cal-badge">CALIBRATED · 47 signals</span>
+            </div>
+            <div class="body">Your past accepts favor <strong>Claude</strong> here. Personal score outranks the benchmark by <strong>14 points</strong>.</div>
+            <div class="scores">
+              <div class="item">
+                <span class="platform">Benchmark</span>
+                <span class="num">78</span>
+              </div>
+              <div class="arrow">›</div>
+              <div class="item">
+                <span class="platform">Personal</span>
+                <span class="num personal">92</span>
+              </div>
+              <div class="reason">Blended 70/30 from your accept + dismiss history</div>
+            </div>
+            <span class="open-btn">Open in Claude →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Quality Scores (Pro, popup card) -->
+      <div class="mockup">
+        <div class="mockup-head">
+          <span class="name">Quality scores</span>
+          <span class="tag">pop-up · per-platform trend</span>
+        </div>
+        <p class="mockup-desc">A rolling 30-day score per platform, derived from your captures. Aggregates heatmap redness, response length on instruction-following prompts, and your thumbs.</p>
+        <div class="mockup-frame">
+          <div class="dm-popcard">
+            <div class="pop-head">QUALITY · LAST 30 DAYS</div>
+            <div class="dm-quality-chart">
+              <div class="dm-quality-row">
+                <span class="platform">CLAUDE</span>
+                <span class="bar"><span class="fill" style="width:84%"></span></span>
+                <span class="num">84</span>
+              </div>
+              <div class="dm-quality-row">
+                <span class="platform">DEEPSEEK</span>
+                <span class="bar"><span class="fill" style="width:78%"></span></span>
+                <span class="num">78</span>
+              </div>
+              <div class="dm-quality-row">
+                <span class="platform">CHATGPT</span>
+                <span class="bar"><span class="fill" style="width:71%"></span></span>
+                <span class="num">71</span>
+              </div>
+              <div class="dm-quality-row">
+                <span class="platform">GEMINI</span>
+                <span class="bar"><span class="fill" style="width:65%"></span></span>
+                <span class="num">65</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Reuse Clusters (Pro, popup card) -->
+      <div class="mockup">
+        <div class="mockup-head">
+          <span class="name">Reuse clusters</span>
+          <span class="tag">pop-up · agglomerative grouping</span>
+        </div>
+        <p class="mockup-desc">Online clustering on your captured prompts using TF vectors and cosine similarity. Surfaces topics you keep cycling through — across every platform you use.</p>
+        <div class="mockup-frame">
+          <div class="dm-popcard">
+            <div class="pop-head">REUSE CLUSTERS · TOP 4</div>
+            <div class="dm-clusters">
+              <div class="dm-cluster">
+                <span class="topic">React state in nested trees</span>
+                <span class="count">14 · 3 platforms</span>
+              </div>
+              <div class="dm-cluster">
+                <span class="topic">Async streaming + backpressure</span>
+                <span class="count">9 · 2 platforms</span>
+              </div>
+              <div class="dm-cluster">
+                <span class="topic">Static site generators</span>
+                <span class="count">7 · 4 platforms</span>
+              </div>
+              <div class="dm-cluster">
+                <span class="topic">SQL window functions</span>
+                <span class="count">5 · 2 platforms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Prompts Export (Pro, popup card) -->
+      <div class="mockup">
+        <div class="mockup-head">
+          <span class="name">Prompts export</span>
+          <span class="tag">pop-up · download as JSON</span>
+        </div>
+        <p class="mockup-desc">Full local history downloadable as a single JSON file — platform, prompt, evasion %, timestamp. Your data, in your hands, in a portable format.</p>
+        <div class="mockup-frame">
+          <div class="dm-popcard">
+            <div class="pop-head">EXPORT · 1,247 PROMPTS</div>
+            <div class="dm-export-preview">[
+  { <span class="key">"platform"</span>: <span class="str">"claude"</span>,   <span class="key">"prompt"</span>: <span class="str">"refactor async handler with backpressure…"</span>, <span class="key">"evasion"</span>: <span class="num">0.18</span> },
+  { <span class="key">"platform"</span>: <span class="str">"chatgpt"</span>,  <span class="key">"prompt"</span>: <span class="str">"summarize this PDF transcript into a brief…"</span>,  <span class="key">"evasion"</span>: <span class="num">0.42</span> },
+  { <span class="key">"platform"</span>: <span class="str">"gemini"</span>,   <span class="key">"prompt"</span>: <span class="str">"explain React Context API re-render behavior…"</span>,    <span class="key">"evasion"</span>: <span class="num">0.31</span> },
+  { <span class="key">"platform"</span>: <span class="str">"deepseek"</span>, <span class="key">"prompt"</span>: <span class="str">"SQL window function for cumulative sum…"</span>,            <span class="key">"evasion"</span>: <span class="num">0.12</span> },
+  <span class="dim">… 1,243 more</span>
+]</div>
+            <div class="dm-export-btn">⬇ Download JSON</div>
           </div>
         </div>
       </div>
@@ -1769,41 +3080,35 @@
 <section class="zone" id="platforms">
   <div class="container">
     <div class="zone-head">
-      <div class="section-marker">§ 04 · Coverage <span class="wavelength">— six platforms, all live</span></div>
-      <h2>Wherever you talk to the model, <em>aLLMost is the lens.</em></h2>
-      <p class="lede">The extension uses fetch-layer interception, not DOM scraping — which means it survives the weekly UI changes the major platforms ship.</p>
+      <div class="section-marker">§ 03 · Coverage <span class="wavelength">— six platforms, all live</span></div>
+      <h2>Wherever you talk to the model, <em>a<span class="llm">LLM</span>ost is the lens.</em></h2>
+      <p class="lede">The extension uses fetch-layer interception, not DOM scraping.</p>
     </div>
 
     <div class="platforms-grid">
       <div class="platform-cell">
         <div class="name">Claude</div>
         <div class="domain">claude.ai</div>
-        <div class="status">Live</div>
       </div>
       <div class="platform-cell">
         <div class="name">ChatGPT</div>
-        <div class="domain">chatgpt.com · chat.openai.com</div>
-        <div class="status">Live</div>
+        <div class="domain">chatgpt.com</div>
       </div>
       <div class="platform-cell">
         <div class="name">Gemini</div>
         <div class="domain">gemini.google.com</div>
-        <div class="status">Live</div>
       </div>
       <div class="platform-cell">
         <div class="name">DeepSeek</div>
         <div class="domain">chat.deepseek.com</div>
-        <div class="status">Live</div>
       </div>
       <div class="platform-cell">
         <div class="name">Kimi</div>
         <div class="domain">kimi.com</div>
-        <div class="status">Live</div>
       </div>
       <div class="platform-cell">
         <div class="name">Grok</div>
-        <div class="domain">grok.com · x.com/i/grok</div>
-        <div class="status">Live</div>
+        <div class="domain">grok.com</div>
       </div>
     </div>
   </div>
@@ -1815,41 +3120,41 @@
 <section class="zone" id="privacy">
   <div class="container">
     <div class="zone-head">
-      <div class="section-marker">§ 05 · Local-first commitment <span class="wavelength">— green 530nm</span></div>
+      <div class="section-marker">§ 04 · Local-first commitment <span class="wavelength">— green 530nm</span></div>
+      <h2>Your prompts <em>never leave your machine.</em></h2>
     </div>
 
     <div class="manifesto">
       <div class="manifesto-grid">
-        <h3>Your prompts<br>never leave<br>your machine.</h3>
 
         <div class="manifesto-points">
           <div class="pt">
-            <div class="num">01</div>
-            <div>
+            <div class="pt-head">
               <h4>No backend. No server. No telemetry.</h4>
-              <p>aLLMost has no API of its own to send your prompts to. The free tier makes zero outbound network requests beyond the LLM platform you're already on.</p>
+              <span class="num">01 · trust</span>
             </div>
+            <p>a<span class="llm">LLM</span>ost has no API of its own to send your prompts to. The free tier makes zero outbound network requests beyond the <span class="llm">LLM</span> platform you're already on.</p>
           </div>
           <div class="pt">
-            <div class="num">02</div>
-            <div>
+            <div class="pt-head">
               <h4>IndexedDB stores everything locally.</h4>
-              <p>Your prompt history, embeddings, and analytics live in your browser's local database. Cap is 100 prompts free, 1,000 on Pro. Clear it any time from settings.</p>
+              <span class="num">02 · storage</span>
             </div>
+            <p>Your prompt history, embeddings, and analytics live in your browser's local database. Cap is 100 prompts free, 1,000 on Pro. Clear it any time from settings.</p>
           </div>
           <div class="pt">
-            <div class="num">03</div>
-            <div>
+            <div class="pt-head">
               <h4>Even evasion detection runs locally.</h4>
-              <p>No external API call. Evasion % is derived from the same 300+ hedge/refusal/overclaim patterns that power the free-tier heatmap — classified per sentence, aggregated per response. Nothing about your prompts leaves the browser.</p>
+              <span class="num">03 · classifier</span>
             </div>
+            <p>No external API call. Evasion % is derived from the same 300+ hedge/refusal/overclaim patterns that power the free-tier heatmap — classified per sentence, aggregated per response. Nothing about your prompts leaves the browser.</p>
           </div>
           <div class="pt">
-            <div class="num">04</div>
-            <div>
+            <div class="pt-head">
               <h4>Open source. Auditable. Permission-light.</h4>
-              <p>Manifest V3 with the minimum surface: <code style="font-family:var(--mono);font-size:12px;background:var(--ink-raised);padding:1px 6px;border-radius:3px;color:var(--bone);">storage</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--ink-raised);padding:1px 6px;border-radius:3px;color:var(--bone);">activeTab</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--ink-raised);padding:1px 6px;border-radius:3px;color:var(--bone);">sidePanel</code>. No CSP rewriting, no debugger access, no host requests beyond the LLM domains you visit.</p>
+              <span class="num">04 · permissions</span>
             </div>
+            <p>Manifest V3 with the minimum surface: <code style="font-family:var(--mono);font-size:12px;background:var(--ink-raised);padding:1px 6px;border-radius:3px;color:var(--bone);">storage</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--ink-raised);padding:1px 6px;border-radius:3px;color:var(--bone);">activeTab</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--ink-raised);padding:1px 6px;border-radius:3px;color:var(--bone);">sidePanel</code>. No CSP rewriting, no debugger access, no host requests beyond the <span class="llm">LLM</span> domains you visit.</p>
           </div>
         </div>
       </div>
@@ -1863,7 +3168,7 @@
 <section class="zone" id="pricing">
   <div class="container">
     <div class="zone-head">
-      <div class="section-marker">§ 06 · Pricing <span class="wavelength">— full spectrum</span></div>
+      <div class="section-marker">§ 05 · Pricing <span class="wavelength">— full spectrum</span></div>
       <h2>Free works <em>indefinitely.</em><br>Pro pays for the heavy analysis.</h2>
     </div>
 
@@ -1877,11 +3182,6 @@
           <li>Déjà Prompt (last 100 prompts, FIFO)</li>
           <li>Model Router across all platforms</li>
           <li>Confidence heatmap · 300+ patterns · 4 categories</li>
-          <li class="muted">Evasion trend — Pro only</li>
-          <li class="muted">Quality scores per platform — Pro only</li>
-          <li class="muted">Reuse cluster analysis — Pro only</li>
-          <li class="muted">Personalized routing — Pro only</li>
-          <li class="muted">Prompts export — Pro only</li>
         </ul>
         <div class="price-cta">
           <a href="#" class="btn ghost">Add to Chrome</a>
@@ -1916,7 +3216,7 @@
 <section class="zone" id="faq">
   <div class="container" style="max-width: 880px;">
     <div class="zone-head">
-      <div class="section-marker">§ 07 · Questions <span class="wavelength">— frequently asked</span></div>
+      <div class="section-marker">§ 06 · Questions <span class="wavelength">— frequently asked</span></div>
       <h2>The fine print, <em>without the print.</em></h2>
     </div>
 
@@ -1925,21 +3225,21 @@
       <details class="faq" open>
         <summary>How is this different from a browser extension that just summarizes responses? <span class="toggle">+</span></summary>
         <div class="answer">
-          aLLMost doesn't summarize anything. It surfaces signal that's already in the response — hedging language, evasion patterns, per-sentence confidence — and routes prompts to the model best suited for the task. The output of the LLM is untouched. We add a layer on top.
+          a<span class="llm">LLM</span>ost doesn't summarize anything. It surfaces signal that's already in the response — hedging language, evasion patterns, per-sentence confidence — and routes prompts to the model best suited for the task. The output of the <span class="llm">LLM</span> is untouched. We add a layer on top.
         </div>
       </details>
 
       <details class="faq">
-        <summary>Does aLLMost see my conversations? <span class="toggle">+</span></summary>
+        <summary><span>Does a<span class="llm">LLM</span>ost see my conversations?</span> <span class="toggle">+</span></summary>
         <div class="answer">
-          Only locally, on your machine. Both the free tier AND Pro features run entirely in-browser — no outbound requests beyond the LLM platform you're already on. Evasion detection, quality scores, clusters, and personalized routing all derive from the same local classifiers. Your prompts never leave the device.
+          Only locally, on your machine. Both the free tier AND Pro features run entirely in-browser — no outbound requests beyond the <span class="llm">LLM</span> platform you're already on. Evasion detection, quality scores, clusters, and personalized routing all derive from the same local classifiers. Your prompts never leave the device.
         </div>
       </details>
 
       <details class="faq">
         <summary>Will it break when ChatGPT redesigns its UI again? <span class="toggle">+</span></summary>
         <div class="answer">
-          Less than you'd expect. aLLMost intercepts the network layer — the SSE completion endpoint that the chat UI hits — not the rendered DOM. Network protocols are far more stable than UIs. The only DOM piece is a single anchor element to mount the overlay on, with fallback selectors per platform.
+          Less than you'd expect. a<span class="llm">LLM</span>ost intercepts the network layer — the SSE completion endpoint that the chat UI hits — not the rendered DOM. Network protocols are far more stable than UIs. The only DOM piece is a single anchor element to mount the overlay on, with fallback selectors per platform.
         </div>
       </details>
 
@@ -1966,9 +3266,9 @@
      ══════════════════════════════════════════════ -->
 <section class="closing">
   <div class="container">
-    <h2>Stop reading <em>through</em> the model.<br>Start reading <span class="refract">around</span> it.</h2>
+    <h2>Start reading <span class="refract">around</span> your models.</h2>
     <p class="sub" style="font-size:18px; max-width:560px;">
-      aLLMost installs in fifteen seconds, uses zero account setup, and starts working the moment you open a chat. Free, indefinitely.
+      a<span class="llm">LLM</span>ost installs in fifteen seconds, uses zero account setup, and starts working the moment you open a chat. Free, indefinitely.
     </p>
     <div class="cta-row">
       <a href="#" class="btn spec">Add to Chrome — Free</a>
@@ -1985,22 +3285,12 @@
     <div class="row">
       <div class="col">
         <a href="#" class="brand" style="font-size:20px;">
-          <svg class="prism-mark" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="ftPrism" x1="0" y1="0" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stop-color="#8B6BFF"/>
-                <stop offset="0.4" stop-color="#5CDFFF"/>
-                <stop offset="0.7" stop-color="#FFB347"/>
-                <stop offset="1" stop-color="#FF6B6B"/>
-              </linearGradient>
-            </defs>
-            <path d="M11 1.5 L20.5 19 L1.5 19 Z" stroke="url(#ftPrism)" stroke-width="1.4" stroke-linejoin="round"/>
-          </svg>
+          <span class="prism-mark" aria-hidden="true"></span>
           <span class="word">
             <span class="a-bracket">a</span><span class="refract-llm">LLM</span><span class="ost">ost</span>
           </span>
         </a>
-        <p class="blurb">A thin lens on every LLM you talk to. Confidence, evasion, intent — split into colors you can read at a glance.</p>
+        <p class="blurb">A thin lens on every <span class="llm">LLM</span> you talk to. Confidence, evasion, intent — split into colors you can read at a glance.</p>
       </div>
 
       <div class="col">
@@ -2014,32 +3304,90 @@
       </div>
 
       <div class="col">
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Changelog</a></li>
-          <li><a href="#">Roadmap</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-
-      <div class="col">
         <h5>Legal</h5>
         <ul>
           <li><a href="#">Privacy policy</a></li>
           <li><a href="#">Terms of service</a></li>
-          <li><a href="#">Open source</a></li>
         </ul>
       </div>
     </div>
 
     <div class="legal">
-      <span>© 2026 Algomittens LLC · Made with care in South Carolina</span>
-      <div class="spectrum-mark"></div>
+      <span>© 2026 Algomittens LLC</span>
+      <span class="legal-tm">Not affiliated with Anthropic, OpenAI, Google, DeepSeek, Moonshot AI, or xAI · trademarks belong to their respective owners</span>
       <span>v0.1 · spec rev 1.1</span>
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  var stage = document.querySelector('.demo-stage');
+  if (!stage) return;
+  var track   = stage.querySelector('.demo-track');
+  var scenes  = stage.querySelectorAll('.demo-scene');
+  var dots    = stage.querySelectorAll('.demo-dots .dot');
+  var num     = stage.querySelector('.demo-caption-num');
+  var name    = stage.querySelector('.demo-caption-name');
+  var prevBtn = stage.querySelector('.demo-prev');
+  var nextBtn = stage.querySelector('.demo-next');
+  var labels  = [
+    'Déjà Prompt',
+    'Confidence + Evasion',
+    'Model Router',
+    'Quality Scores',
+    'Reuse Clusters',
+    'Personalized Routing',
+    'Prompts Export'
+  ];
+  var i = 0;
+  var total = scenes.length;
+
+  function go(n) {
+    i = ((n % total) + total) % total;
+    track.style.transform = 'translateX(-' + (i * 100) + '%)';
+    for (var k = 0; k < dots.length; k++) {
+      dots[k].classList.toggle('active', k === i);
+    }
+    num.textContent  = 'Scene ' + (i + 1) + ' / ' + total;
+    name.textContent = labels[i];
+  }
+
+  prevBtn.addEventListener('click', function () { go(i - 1); });
+  nextBtn.addEventListener('click', function () { go(i + 1); });
+  for (var d = 0; d < dots.length; d++) {
+    (function (idx) {
+      dots[idx].addEventListener('click', function () { go(idx); });
+    })(d);
+  }
+
+  // Touch / mouse swipe
+  var startX = 0, startY = 0, dragging = false;
+  track.addEventListener('pointerdown', function (e) {
+    startX = e.clientX; startY = e.clientY; dragging = true;
+  });
+  window.addEventListener('pointerup', function (e) {
+    if (!dragging) return;
+    dragging = false;
+    var dx = e.clientX - startX;
+    var dy = e.clientY - startY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      go(i + (dx < 0 ? 1 : -1));
+    }
+  });
+  window.addEventListener('pointercancel', function () { dragging = false; });
+
+  // Keyboard arrows when stage is hovered
+  var hovered = false;
+  stage.addEventListener('mouseenter', function () { hovered = true; });
+  stage.addEventListener('mouseleave', function () { hovered = false; });
+  window.addEventListener('keydown', function (e) {
+    if (!hovered) return;
+    if (e.key === 'ArrowRight')      { e.preventDefault(); go(i + 1); }
+    else if (e.key === 'ArrowLeft')  { e.preventDefault(); go(i - 1); }
+  });
+})();
+</script>
 
 </body>
 </html>

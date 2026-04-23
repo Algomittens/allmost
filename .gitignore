@@ -15,3 +15,9 @@ _mockup-sources/
 
 # Chrome Web Store submission assets (uploaded directly to CWS, not served)
 store/
+store_new/
+store_new_mine/
+
+# Local backups
+old icons and images/
+old_extra_icon_files.zip
